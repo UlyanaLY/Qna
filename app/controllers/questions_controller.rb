@@ -2,6 +2,7 @@
 
 class QuestionsController < ApplicationController
   before_action :load_question, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @questions = Question.all
@@ -19,8 +20,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save
-      flash[:notice] = 'Your question successfully created.'
-      redirect_to @question
+      redirect_to @question, notice: 'Question was successfully created.'
     else
       render :new
     end
@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to @question
+      redirect_to @question, notice: 'Question was successfully created.'
     else
       render :edit
     end
