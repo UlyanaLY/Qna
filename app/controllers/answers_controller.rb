@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_answer, only: %i[show edit update destroy]
   before_action :set_question, only: %i[new create]
 
@@ -8,7 +9,9 @@ class AnswersController < ApplicationController
     @answers = Answer.all
   end
 
-  def show; end
+  def show
+    @answer = @question.answers.build
+  end
 
   def new
     @answer = Answer.new
@@ -18,9 +21,9 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params)
 
     if @answer.save
-      redirect_to @question
+      redirect_to @answer.question, notice: 'Answer was successfully created.'
     else
-      render :new
+      redirect_to @answer.question, notice: 'You need to sign in or sign up before continuing'
     end
   end
 

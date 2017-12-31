@@ -1,0 +1,15 @@
+= @question.title
+= @question.body
+
+ul
+  - @question.answers.each do |answer|
+      li
+        =  answer.body
+      li
+        = answer.body
+.answer
+  = link_to "Answer"
+  = form_for [@question, @answer] do |form|
+    = form.label :body
+    = form.text_area :body
+    = form.submit 'Create'

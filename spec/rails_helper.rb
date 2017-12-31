@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.include FactoryBot::Syntax::Methods
-  config.include Devise::TestHelpers,type: :controller
+  config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
   config.include AcceptanceMacros, type: :feature
 
