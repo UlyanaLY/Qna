@@ -7,9 +7,10 @@ feature 'User can view a list of questions and answers', '
   As a user
   I want to be able to view list questions and answers
 ' do
-  given!(:questions) { create_list(:questions, 5) }
-  given(:question) { create(:question) }
-  given!(:answers) { create_list(:answer, 5, question: question) }
+  given(:user) { create(:user) }
+  given!(:questions) { create_list(:questions, 5, user: user) }
+  given(:question) { create(:question, user: user) }
+  given!(:answers) { create_list(:answer, 5, question: question, user: user) }
 
   scenario 'User can view a list of questions' do
     visit questions_path

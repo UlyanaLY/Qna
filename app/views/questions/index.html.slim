@@ -2,4 +2,12 @@ ul
 -@questions.each do |question|
   li
     = question.title
+    .question
+      p
+        = link_to 'Показать', question
+      p
+        = link_to 'Редактировать', edit_question_path(question)
+      p
+        = link_to 'Удалить', question, method: :delete, data: { confirm: 'Вы уверены?' }
+p
 =link_to "Ask question", new_question_path

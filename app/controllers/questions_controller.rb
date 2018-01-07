@@ -19,8 +19,7 @@ class QuestionsController < ApplicationController
   def edit; end
 
   def create
-    @question = Question.new(question_params)
-
+    @question = current_user.questions.build(question_params)
     if @question.save
       redirect_to @question, notice: 'Question was successfully created.'
     else
@@ -29,16 +28,21 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question, notice: 'Question was successfully created.'
+    if @question.user == current_user
+      @question.update(question_params)
+      redirect_to @question, notice: 'Question was successfully updated.'
     else
-      render :edit
+      redirect_to @question, notice: 'You can\'t update question, that is no yours'
     end
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path
+    if @question.user == current_user
+      @question.destroy
+      redirect_to questions_path, notice: 'Question was successfully destroyed.'
+    else
+      redirect_to @question, notice: 'You can\'t delete question, that is no yours'
+    end
   end
 
   private

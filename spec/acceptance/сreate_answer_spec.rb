@@ -9,7 +9,7 @@ feature 'Create answer', '
 ' do
 
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
 
   scenario 'Authenticated user creates answer' do
     sign_in(user)

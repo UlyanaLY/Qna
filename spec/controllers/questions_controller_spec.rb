@@ -3,10 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:question) { create(:question) }
+  let(:user) { @user || create(:user) }
+  let(:question) { create(:question, user: user) }
+  let(:invalid_user) { create(:user) }
+  let(:second_question) { create(:question, user: invalid_user) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 2) }
+    let(:questions) { create_list(:question, 2, user: user) }
 
     before { get :index }
 
@@ -116,7 +119,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 're-renders edit view' do
-        expect(response).to render_template :edit
+        expect(response).to redirect_to question
       end
     end
   end
@@ -124,14 +127,28 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'DELETE #destroy' do
     sign_in_user
     before { question }
+    before { second_question }
 
-    it 'deletes question' do
-      expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+    context 'valid user' do
+      it 'deletes question' do
+        expect { delete :destroy, params: { id: question, user: user } }.to change(Question, :count).by(-1)
+      end
+
+      it 'redirect to index view' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
     end
 
-    it 'redirect to index view' do
-      delete :destroy, params: { id: question }
-      expect(response).to redirect_to questions_path
+    context 'invalid user' do
+      it 'deletes question' do
+        expect { delete :destroy, params: { id: second_question } }.to_not change(Question, :count)
+      end
+
+      it 'redirects to index view' do
+        delete :destroy, params: { id: second_question }
+        expect(response).to redirect_to second_question
+      end
     end
   end
 end

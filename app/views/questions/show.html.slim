@@ -1,15 +1,20 @@
-= @question.title
-= @question.body
+div
+  = @question.title
+div
+  = @question.body
 
 ul
   - @question.answers.each do |answer|
       li
         =  answer.body
-      li
-        = answer.body
+
 .answer
-  = link_to "Answer"
-  = form_for [@question, @answer] do |form|
-    = form.label :body
-    = form.text_area :body
-    = form.submit 'Create'
+= form_for [@question, @answer] do | form |
+  = form.label :body
+  div
+  = form.text_area :body
+  div
+  = form.submit "Create"
+
+.back
+  =link_to 'Назад', questions_path

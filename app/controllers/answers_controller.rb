@@ -2,15 +2,15 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :set_answer, only: %i[show edit update destroy]
-  before_action :set_question, only: %i[new create]
+  before_action :set_answer, only: %i[show destroy]
+  before_action :set_question, only: %i[new create destroy]
 
   def index
     @answers = Answer.all
   end
 
   def show
-    @answer = @question.answers.build
+    @answer = @question.answers
   end
 
   def new
@@ -18,7 +18,8 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = current_user.answers.build(answer_params)
+    @answer.question = @question
 
     if @answer.save
       redirect_to @answer.question, notice: 'Answer was successfully created.'
@@ -27,19 +28,9 @@ class AnswersController < ApplicationController
     end
   end
 
-  def update
-    if @answer.update(answer_params)
-      redirect_to @answer.question
-    else
-      render :edit
-    end
-  end
-
-  def edit; end
-
   def destroy
     @answer.destroy
-    redirect_to @question.answer
+    redirect_to @question, notice: 'Answer was successfully destroyed.'
   end
 
   protected
