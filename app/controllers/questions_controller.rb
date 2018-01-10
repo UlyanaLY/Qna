@@ -9,7 +9,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = Answer.new(question: @question)
+    @answer = @question.answers.new
+    #@answer = Answer.new(question: @question)
   end
 
   def new
@@ -28,7 +29,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.user == current_user
+    if current_user.author_of?(@question)
       @question.update(question_params)
       redirect_to @question, notice: 'Question was successfully updated.'
     else
@@ -37,7 +38,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.user == current_user
+    if current_user.author_of?(@question)
       @question.destroy
       redirect_to questions_path, notice: 'Question was successfully destroyed.'
     else

@@ -1,21 +1,9 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!
   before_action :set_answer, only: %i[show destroy]
-  before_action :set_question, only: %i[new create destroy]
-
-  def index
-    @answers = Answer.all
-  end
-
-  def show
-    @answer = @question.answers
-  end
-
-  def new
-    @answer = Answer.new
-  end
+  before_action :set_question, only: %i[new create]
 
   def create
     @answer = current_user.answers.build(answer_params)
@@ -24,12 +12,14 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @answer.question, notice: 'Answer was successfully created.'
     else
-      redirect_to @answer.question, notice: 'You need to sign in or sign up before continuing'
+      render 'questions/show'
     end
   end
 
   def destroy
-    @answer.destroy
+    @question = @answer.question
+    @answer.destroy if current_user.author_of?(@answer)
+
     redirect_to @question, notice: 'Answer was successfully destroyed.'
   end
 

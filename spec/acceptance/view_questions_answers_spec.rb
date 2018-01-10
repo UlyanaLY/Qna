@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-feature 'User can view a list of questions and answers', '
-  In order to find an answer
+feature 'User can view a list of questions and answers', %q{
+  In order to find an answer or a question
   As a user
   I want to be able to view list questions and answers
-' do
+} do
   given(:user) { create(:user) }
-  given!(:questions) { create_list(:questions, 5, user: user) }
+  given!(:questions) { create_list(:question, 5, user: user) }
   given(:question) { create(:question, user: user) }
   given!(:answers) { create_list(:answer, 5, question: question, user: user) }
 

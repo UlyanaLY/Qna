@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-feature 'User sign out', '
+feature 'User sign out', %q{
   In oder to quit site,
   as an user
   I want to be able to sign out
-' do
+} do
 
   given(:user) { create(:user) }
 

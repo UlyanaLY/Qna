@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-feature 'Create answer', '
+feature 'Create answer', %q{
     In order to answer on a question
     As an authenticated user
     I want to be able to create an answer on questions
-' do
+} do
 
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
@@ -28,5 +28,15 @@ feature 'Create answer', '
     visit question_path(question)
     click_on 'Create'
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
+  end
+
+  scenario 'Authenticated user try creates a non-valid answer' do
+    sign_in(user)
+
+    visit question_path(question)
+    fill_in 'Body', with: ''
+    click_on 'Create'
+
+    expect(page).to have_content 'Body can\'t be blank'
   end
 end

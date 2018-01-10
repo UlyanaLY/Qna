@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-feature 'User sign up', '
+feature 'User sign up', %q{
   In oder be able to create questions and answers,
   as an user
   I want to be able to sign up
-' do
+} do
 
   scenario 'Registration with valid attributes' do
     visit new_user_registration_path
