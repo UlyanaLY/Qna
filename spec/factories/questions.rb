@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :question, class: Question do
+  factory :question do
     sequence(:title) { |n| "Title #{n}" }
     body 'My Text'
   end

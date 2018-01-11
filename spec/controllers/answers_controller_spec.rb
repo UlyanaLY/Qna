@@ -18,6 +18,10 @@ RSpec.describe AnswersController, type: :controller do
         expect { create_answer }.to change(question.answers, :count).by(1)
       end
 
+      it 'saves the new answer in the database with valid user.id' do
+        expect(answer.user.id).to eq user.id
+      end
+
       it 'redirects to show question view' do
         create_answer
         expect(response).to redirect_to question_path(assigns(:question))
@@ -53,7 +57,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       context 'invalid user' do
-        it 'deletes answer' do
+        it 'doesn\'t delete answer' do
           expect { delete :destroy, params: { question_id: question, id: second_answer } }.not_to change(Answer, :count)
         end
 

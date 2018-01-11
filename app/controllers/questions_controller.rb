@@ -3,6 +3,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :load_question, only: %i[show edit update destroy]
+  before_action :verify_user, only: %i[update destroy]
 
   def index
     @questions = Question.all
@@ -10,7 +11,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.new
-    #@answer = Answer.new(question: @question)
+    # @answer = Answer.new(question: @question)
   end
 
   def new
@@ -29,16 +30,20 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(@question)
+    if verify_user
       @question.update(question_params)
-      redirect_to @question, notice: 'Question was successfully updated.'
+      if @question.save
+        redirect_to @question, notice: 'Question was successfully updated.'
+      else
+        redirect_to @question, notice: 'Body or title of question can\'t be blanck'
+      end
     else
       redirect_to @question, notice: 'You can\'t update question, that is no yours'
     end
   end
 
   def destroy
-    if current_user.author_of?(@question)
+    if verify_user
       @question.destroy
       redirect_to questions_path, notice: 'Question was successfully destroyed.'
     else
@@ -54,5 +59,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body)
+  end
+
+  def verify_user
+    current_user.author_of?(@question)
   end
 end

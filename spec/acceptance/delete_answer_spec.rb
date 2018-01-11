@@ -14,20 +14,16 @@ feature 'Delete answer', %q{
 
   scenario 'Authenticated user delete his answer' do
     sign_in(user)
-    question
-    answer
 
     visit question_path(question)
     click_on 'Удалить'
 
     expect(page).to_not have_content answer.body
-    expect(current_path).to eq question_path(question)
+    expect(page).to have_content 'Answer was successfully destroyed.'
   end
 
   scenario 'Another user cannot delete the answer of other user' do
     sign_in(second_user)
-    question
-    answer
 
     visit question_path(question)
 
@@ -35,8 +31,6 @@ feature 'Delete answer', %q{
   end
 
   scenario 'Non-authenticated user try to delete answer' do
-    question
-    answer
     visit question_path(question)
 
     expect(page).to_not have_content 'Удалить'

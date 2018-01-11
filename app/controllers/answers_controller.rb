@@ -18,9 +18,12 @@ class AnswersController < ApplicationController
 
   def destroy
     @question = @answer.question
-    @answer.destroy if current_user.author_of?(@answer)
-
-    redirect_to @question, notice: 'Answer was successfully destroyed.'
+    if current_user.author_of?(@answer)
+      @answer.destroy
+      redirect_to @question, notice: 'Answer was successfully destroyed.'
+    else
+      redirect_to @question, notice: 'You can\'t destroy the answer, that is not yours'
+    end
   end
 
   protected

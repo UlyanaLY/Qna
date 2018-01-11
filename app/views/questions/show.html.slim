@@ -4,12 +4,13 @@ div
   = @question.body
 
 ul
-  - @question.answers.each do |answer|
-      li
-        = answer.body
-      - if current_user && current_user.author_of?(answer)
-        p
-          = link_to 'Удалить', answer, method: :delete, data: {confirm: 'Вы уверены?'}
+      - @question.answers.each do |answer|
+        -if answer.persisted?
+          li
+            = answer.body
+          - if current_user&.author_of?(answer)
+            p
+              = link_to 'Удалить', answer, method: :delete, data: {confirm: 'Вы уверены?'}
 
 .answer
 = form_for [@question, @answer] do | form |

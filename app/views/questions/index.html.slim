@@ -1,9 +1,9 @@
 ul
 - @questions.each do |question|
   li
-    = link_to "#{question.title}", question
+    = link_to question.title, question
     .question
-    - if current_user && current_user.author_of?(question)
+    - if current_user&.author_of?(question)
       p
         = link_to 'Редактировать', edit_question_path(question)
       p
