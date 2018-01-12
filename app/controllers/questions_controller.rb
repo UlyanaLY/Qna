@@ -32,14 +32,15 @@ class QuestionsController < ApplicationController
   def update
     if verify_user
       @question.update(question_params)
-      if @question.save
-        redirect_to @question, notice: 'Question was successfully updated.'
-      else
-        redirect_to @question, notice: 'Body or title of question can\'t be blanck'
-      end
+        if @question.save
+           flash[:notice] = 'Question was successfully updated.'
+        else
+           flash[:notice] = 'Body or title of question can\'t be blanck'
+        end
     else
-      redirect_to @question, notice: 'You can\'t update question, that is no yours'
+      flash[:notice] = 'You can\'t update question, that is no yours'
     end
+    redirect_to @question
   end
 
   def destroy

@@ -20,10 +20,11 @@ class AnswersController < ApplicationController
     @question = @answer.question
     if current_user.author_of?(@answer)
       @answer.destroy
-      redirect_to @question, notice: 'Answer was successfully destroyed.'
+      flash[:notice] = 'Answer was successfully destroyed.'
     else
-      redirect_to @question, notice: 'You can\'t destroy the answer, that is not yours'
+      flash[:notice] = 'You can\'t destroy the answer, that is not yours'
     end
+    redirect_to @question
   end
 
   protected

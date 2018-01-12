@@ -71,7 +71,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'saves the new question in the database with valid user.id' do
-        expect(question.user.id).to eq user.id
+        expect { post :create, params: { question: attributes_for(:question) } }.to change(user.questions, :count).by(1)
       end
 
       it 'redirects to show view' do
@@ -88,17 +88,6 @@ RSpec.describe QuestionsController, type: :controller do
       it 're-renders new view' do
         post :create, params: { question: attributes_for(:invalid_question) }
         expect(response).to render_template :new
-      end
-    end
-
-    context 'with valid user' do
-      it 'saves the new question in the database' do
-        expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
-      end
-
-      it 'redirects to show view' do
-        post :create, params: { question: attributes_for(:question) }
-        expect(response).to redirect_to question_path(assigns(:question))
       end
     end
   end

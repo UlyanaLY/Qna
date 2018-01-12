@@ -19,7 +19,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'saves the new answer in the database with valid user.id' do
-        expect(answer.user.id).to eq user.id
+        expect { create_answer }.to change(user.answers, :count).by(1)
       end
 
       it 'redirects to show question view' do
