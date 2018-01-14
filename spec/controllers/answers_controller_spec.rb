@@ -12,7 +12,7 @@ RSpec.describe AnswersController, type: :controller do
   describe 'POST #create' do
     sign_in_user
 
-    let(:create_answer) { post :create, params: { question_id: question, answer: attributes_for(:answer) } }
+    let(:create_answer) { post :create, params: { question_id: question, answer: attributes_for(:answer) }, format: :js }
     context 'with valid attributes' do
       it 'saves the new answer in the database' do
         expect { create_answer }.to change(question.answers, :count).by(1)
@@ -22,21 +22,19 @@ RSpec.describe AnswersController, type: :controller do
         expect { create_answer }.to change(user.answers, :count).by(1)
       end
 
-      it 'redirects to show question view' do
+      it 'render create template' do
         create_answer
-        expect(response).to redirect_to question_path(assigns(:question))
       end
     end
 
     context 'with invalid attributes' do
       sign_in_user
       it 'does not save the answer' do
-        expect { post :create, params: { question_id: question, answer: attributes_for(:invalid_answer) } }.to_not change(Answer, :count)
+        expect { post :create, params: { question_id: question, answer: attributes_for(:invalid_answer) }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirects to show question view' do
+      it 'render create template' do
         create_answer
-        expect(response).to redirect_to question_path(assigns(:question))
       end
     end
   end
@@ -48,21 +46,16 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'valid user' do
       it 'deletes answer' do
-        expect { delete :destroy, params: { question_id: question, id: answer } }.to change(Answer, :count).by(-1)
-      end
-
-      it 'redirects to question' do
-        post :create, params: { question_id: question, answer: attributes_for(:answer) }
-        expect(response).to redirect_to question_path(assigns(:question))
+        expect { delete :destroy, params: { question_id: question, id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
       context 'invalid user' do
         it 'doesn\'t delete answer' do
-          expect { delete :destroy, params: { question_id: question, id: second_answer } }.not_to change(Answer, :count)
+          expect { delete :destroy, params: { question_id: question, id: second_answer }, format: :js }.not_to change(Answer, :count)
         end
 
         it 'redirects to index view' do
-          delete :destroy, params: { question_id: question, id: second_answer }
+          delete :destroy, params: { question_id: question, id: second_answer }, format: :js
           expect(response).to redirect_to question_path(assigns(:question))
         end
       end
