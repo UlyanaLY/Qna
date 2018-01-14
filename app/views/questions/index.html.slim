@@ -1,0 +1,12 @@
+ul
+- @questions.each do |question|
+  li
+    = link_to question.title, question
+    .question
+    - if current_user&.author_of?(question)
+      p
+        = link_to 'Редактировать', edit_question_path(question)
+      p
+        = link_to 'Удалить', question, method: :delete, data: { confirm: 'Вы уверены?' }
+p
+=link_to "Ask question", new_question_path

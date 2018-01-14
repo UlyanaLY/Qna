@@ -1,42 +1,30 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
-  before_action :set_answer, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  before_action :set_answer, only: %i[show destroy]
   before_action :set_question, only: %i[new create]
 
-  def index
-    @answers = Answer.all
-  end
-
-  def show; end
-
-  def new
-    @answer = Answer.new
-  end
-
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = current_user.answers.build(answer_params)
+    @answer.question = @question
 
     if @answer.save
-      redirect_to @question
+      redirect_to @answer.question, notice: 'Answer was successfully created.'
     else
-      render :new
+      render 'questions/show'
     end
   end
-
-  def update
-    if @answer.update(answer_params)
-      redirect_to @answer.question
-    else
-      render :edit
-    end
-  end
-
-  def edit; end
 
   def destroy
-    @answer.destroy
-    redirect_to @question.answer
+    @question = @answer.question
+    if current_user.author_of?(@answer)
+      @answer.destroy
+      flash[:notice] = 'Answer was successfully destroyed.'
+    else
+      flash[:notice] = 'You can\'t destroy the answer, that is not yours'
+    end
+    redirect_to @question
   end
 
   protected
