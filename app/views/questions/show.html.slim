@@ -4,15 +4,14 @@ div
   = @question.body
 
 .answers
-  = render 'questions/answers'
+  = render @question.answers
 
-div
-  = form_for [@question, @answer], remote: true do |form|
-    = render 'common/errors', resource: @answer
-    = form.label :body
-    div
-    = form.text_area :body
-    div
-    = form.submit "Create"
+= form_for [@question, @answer], remote: true do |form|
+  = render 'common/errors', resource: @answer
+  = form.label :body
+  div
+  = form.text_area :body
+  div
+  = form.submit "Create"
 .back
   =link_to 'Назад', questions_path
