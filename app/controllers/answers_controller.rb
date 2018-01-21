@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
     @answer.question = @question
 
     if @answer.save
-      redirect_to @answer.question, notice: 'Answer was successfully created.'
+      flash[:notice] = 'Answer was successfully created.'
     else
       render 'questions/show'
     end
