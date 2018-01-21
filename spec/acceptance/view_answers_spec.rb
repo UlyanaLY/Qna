@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User can view a list of answers', %q{
   In order to find an answer

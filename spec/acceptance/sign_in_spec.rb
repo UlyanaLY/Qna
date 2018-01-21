@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User sign in', %q{
   In order to be able to ask question

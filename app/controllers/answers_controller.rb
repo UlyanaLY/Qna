@@ -2,7 +2,7 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: %i[show destroy]
+  before_action :set_answer, only: %i[show destroy update]
   before_action :set_question, only: %i[new create]
 
   def create
@@ -12,8 +12,13 @@ class AnswersController < ApplicationController
     if @answer.save
       flash[:notice] = 'Answer was successfully created.'
     else
-      render 'questions/show'
+
     end
+  end
+
+  def update
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def destroy

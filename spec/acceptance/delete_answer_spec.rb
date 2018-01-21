@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Delete answer', %q{
     In order to delete useless answer
