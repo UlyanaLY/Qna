@@ -2,7 +2,7 @@
 
 require_relative 'acceptance_helper'
 
-feature "Answer editing", %q{
+feature 'Answer editing', %q{
   In order to fix mistake
   As an author of answer
   I'd like to be able to edit my answer
@@ -11,7 +11,7 @@ feature "Answer editing", %q{
   given!(:user) { create(:user) }
   given!(:second_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
-  given(:answer) { create(:answer, question: question, user: user) }
+  given!(:answer) { create(:answer, question: question, user: user) }
 
   scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
@@ -32,20 +32,20 @@ feature "Answer editing", %q{
     end
 
     scenario 'try to edit his answer', js: true do
-        click_on 'Edit'
-        within '.answers' do
-          fill_in 'Answer', with: 'edited answer'
-        end
-        expect(page).to have_link 'Edit'
+      click_on 'Edit'
+
+      within '.answers' do
+        fill_in 'Answer', with: 'edited answer'
         click_on 'Save'
 
         expect(page).to_not have_content answer.body
         expect(page).to have_content 'edited answer'
         expect(page).to_not have_selector 'textarea'
       end
+    end
   end
 
-  scenario 'try to edit other user\'s answer' do
+  scenario 'Authenticated user try to edit other user\'s answer' do
     sign_in(second_user)
     visit question_path(question)
 

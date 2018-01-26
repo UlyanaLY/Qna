@@ -1,13 +1,15 @@
 - if answer.persisted?
-    li
-      = answer.body
-      - if current_user&.author_of?(answer)
-        p
-          = link_to "Edit"
-        p
-          = form_for answer, remote: true do |f|
-            p= f.label :body, "Answer"
-            p= f.text_area :body
-            p= f.submit 'Save'
-        p
-          = link_to 'Удалить', answer, method: :delete, data: {confirm: 'Вы уверены?'}
+  div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}"
+    p = answer.body
+    - if current_user&.author_of?(answer)
+      p
+        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      p
+        = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"}  do |f|
+          p= f.label :body, "Answer"
+          p= f.text_area :body
+          p= f.submit 'Save'
+      p
+        = link_to 'Delete', [@question, answer], remote: true, method: :delete, data: { confirm: "You sure?" }
+      - if current_user&.author_of?(@question) && ! answer.best?
+      p= button_to 'Accept answer', accept_answer_question_answer_path(@question, answer), remote: true

@@ -18,7 +18,7 @@ feature 'Create answer', %q{
     fill_in 'answer_body', with: 'Text from answer'
     click_on 'Create'
 
-    within'.answers' do
+    within '.answers' do
       expect(page).to have_content 'Text from answer'
     end
     expect(current_path).to eq question_path(question)
