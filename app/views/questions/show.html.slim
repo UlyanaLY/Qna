@@ -2,7 +2,10 @@ div
   = @question.title
 div
   = @question.body
-
+div Attachments
+ul
+  - @question.attachments.each do |a|
+    li= link_to a.file.file.filename
 .answers
   = render @question.answers.sort_by_best
 
