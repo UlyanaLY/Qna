@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.build(answer_params)
     @answer.question = @question
 
-    flash[:notice] = 'Answer was successfully created.' if @answer.save
+    flash[:notice] = 'Answer was successfully created.' if @answer.save && current_user.author_of?(@answer)
   end
 
   def update
