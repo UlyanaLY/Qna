@@ -2,18 +2,19 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: %i[show destroy]
-  before_action :set_question, only: %i[new create]
+  before_action :set_answer, only: %i[show destroy update accept_answer]
+  before_action :set_question, only: %i[new create accept_answer]
 
   def create
     @answer = current_user.answers.build(answer_params)
     @answer.question = @question
 
-    if @answer.save
-      flash[:notice] = 'Answer was successfully created.'
-    else
-      render 'questions/show'
-    end
+    flash[:notice] = 'Answer was successfully created.' if @answer.save && current_user.author_of?(@answer)
+  end
+
+  def update
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def destroy
@@ -24,7 +25,13 @@ class AnswersController < ApplicationController
     else
       flash[:notice] = 'You can\'t destroy the answer, that is not yours'
     end
-    redirect_to @question
+  end
+
+  def accept_answer
+    return unless current_user.author_of?(@question)
+
+    @answer = @question.answers.find(params[:id])
+    @answer.set_as_best
   end
 
   protected

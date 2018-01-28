@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Create answer', %q{
     In order to answer on a question
@@ -18,7 +18,7 @@ feature 'Create answer', %q{
     fill_in 'answer_body', with: 'Text from answer'
     click_on 'Create'
 
-    within'.answers' do
+    within '.answers' do
       expect(page).to have_content 'Text from answer'
     end
     expect(current_path).to eq question_path(question)
@@ -30,11 +30,10 @@ feature 'Create answer', %q{
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
-  scenario 'Authenticated user try creates a non-valid answer' do
+  scenario 'User try to create invalid answer', js: true do
     sign_in(user)
 
     visit question_path(question)
-    fill_in 'Body', with: ''
     click_on 'Create'
 
     expect(page).to have_content 'Body can\'t be blank'

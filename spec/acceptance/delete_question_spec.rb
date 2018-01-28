@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Delete question', %q{
    In order to delete useless question
@@ -11,7 +11,7 @@ feature 'Delete question', %q{
   given(:second_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
 
-  scenario 'Authenticated user can delete  his question' do
+  scenario 'Authenticated user can delete  his question', js: true do
     sign_in(user)
 
     visit questions_path

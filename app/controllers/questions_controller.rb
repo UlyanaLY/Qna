@@ -11,7 +11,6 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.new
-    # @answer = Answer.new(question: @question)
   end
 
   def new
@@ -32,11 +31,11 @@ class QuestionsController < ApplicationController
   def update
     if verify_user
       @question.update(question_params)
-        if @question.save
-           flash[:notice] = 'Question was successfully updated.'
-        else
-           flash[:notice] = 'Body or title of question can\'t be blanck'
-        end
+      flash[:notice] = if @question.save
+                         'Question was successfully updated.'
+                       else
+                         'Body or title of question can\'t be blanck'
+                       end
     else
       flash[:notice] = 'You can\'t update question, that is no yours'
     end
@@ -46,9 +45,9 @@ class QuestionsController < ApplicationController
   def destroy
     if verify_user
       @question.destroy
-      redirect_to questions_path, notice: 'Question was successfully destroyed.'
+      flash[:notice] = 'Question was successfully destroyed.'
     else
-      redirect_to @question, notice: 'You can\'t delete question, that is no yours'
+      flash[:notice] = 'You can\'t delete question, that is no yours'
     end
   end
 

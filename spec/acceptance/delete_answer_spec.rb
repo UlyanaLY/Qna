@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Delete answer', %q{
     In order to delete useless answer
@@ -12,11 +12,11 @@ feature 'Delete answer', %q{
   given(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, user: user, question: question) }
 
-  scenario 'Authenticated user delete his answer' do
+  scenario 'Authenticated user delete his answer', js: true do
     sign_in(user)
 
     visit question_path(question)
-    click_on 'Удалить'
+    click_on 'Delete'
 
     expect(page).to_not have_content answer.body
     expect(page).to have_content 'Answer was successfully destroyed.'
@@ -27,12 +27,12 @@ feature 'Delete answer', %q{
 
     visit question_path(question)
 
-    expect(page).to_not have_content 'Удалить'
+    expect(page).to_not have_content 'Delete'
   end
 
   scenario 'Non-authenticated user try to delete answer' do
     visit question_path(question)
 
-    expect(page).to_not have_content 'Удалить'
+    expect(page).to_not have_content 'Delete'
   end
 end

@@ -5,4 +5,15 @@ class Answer < ApplicationRecord
   belongs_to :user
 
   validates :body, presence: true
+
+  scope :sort_by_best, -> { order(best: :desc) }
+
+  def set_as_best
+    return if reload.best?
+
+    transaction do
+      question.answers.update_all(best: false)
+      update!(best: true)
+    end
+  end
 end

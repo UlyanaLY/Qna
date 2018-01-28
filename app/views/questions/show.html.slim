@@ -4,14 +4,15 @@ div
   = @question.body
 
 .answers
-  = render @question.answers
+  = render @question.answers.sort_by_best
 
-= form_for [@question, @answer], remote: true do |form|
-  = render 'common/errors', resource: @answer
-  = form.label :body
-  div
-  = form.text_area :body
-  div
-  = form.submit "Create"
-.back
-  =link_to 'Назад', questions_path
+= form_for [@question, @answer], remote: true do |f|
+  p
+    = f.label :body, 'Your answer'
+  .answer-errors
+    = f.text_area :body
+  p
+    = f.submit 'Create'
+
+    .back
+      =link_to 'Назад', questions_path

@@ -53,12 +53,66 @@ RSpec.describe AnswersController, type: :controller do
         it 'doesn\'t delete answer' do
           expect { delete :destroy, params: { question_id: question, id: second_answer }, format: :js }.not_to change(Answer, :count)
         end
-
-        it 'redirects to index view' do
-          delete :destroy, params: { question_id: question, id: second_answer }, format: :js
-          expect(response).to redirect_to question_path(assigns(:question))
-        end
       end
+    end
+  end
+
+  describe 'PATCH #update' do
+    sign_in_user
+    before { answer }
+    before { second_answer }
+
+    it 'assigns the requested answer to @answer' do
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'assigns th question' do
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      patch :update, params: { id: answer, question_id: question, answer: { body: 'new body' }, format: :js }
+      answer.reload
+      expect(answer.body).to eq 'new body'
+    end
+
+    it 'render update template' do
+      patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer), format: :js }
+      expect(response).to render_template :update
+    end
+  end
+
+  describe 'POST #accept_answer' do
+    sign_in_user
+
+    let(:accept_answer) { post :accept_answer, params: { id: second_answer, question_id: question, format: :js } }
+
+    it 'assigns the requested answer to @answer' do
+      accept_answer
+      expect(assigns(:answer)).to eq second_answer
+    end
+
+    it 'assigns the @question' do
+      accept_answer
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'author of question can accept the answer as best' do
+      accept_answer
+
+      second_answer.reload
+      expect(second_answer.best).to be true
+    end
+
+    it 'user can\'t accept answer for someone else\'s  question as best' do
+      second_question = create(:question, user: invalid_user)
+
+      post :accept_answer, params: { id: answer, question_id: second_question, format: :js }
+
+      answer.reload
+      expect(answer.best).to be_falsey
     end
   end
 end
