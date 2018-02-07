@@ -1,0 +1,3 @@
+$('#question_attachment-id-<%= @attachment.id %>').remove();
+$('#answer_attachment-id-<%= @attachment.id %>').remove();
+$('.notice').html('<%= j flash.notice = 'Attachment was successfully destroyed.' %>');

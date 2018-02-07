@@ -9,8 +9,9 @@
   p Attachments:
   p
     = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file
+      = render 'questions/attachment_fields', f: a
+    .links
+      = link_to_add_association "add attachment", f, :attachments, force_non_association_create: true
 
   p
-    = f.submit "#{ @question.new_record? ? 'Create' : 'Edit'} "
+    = f.submit "#{ @question.new_record? ? 'Create' : 'Edit' } "
