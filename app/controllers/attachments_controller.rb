@@ -4,7 +4,7 @@ class AttachmentsController < ApplicationController
 
 
   def destroy
-    if current_user.id==@attachment.attachable.id
+    if current_user.id ==@attachment.attachable.id
       @attachment.destroy
     end
   end

@@ -33,7 +33,7 @@ RSpec.describe AttachmentsController, type: :controller do
       before { second_question }
       before { second_attachment }
       it 'deletes attachment' do
-        expect { delete :destroy, params: { question_id: question, id: attachment }, format: :js }.not_to change(Attachment, :count)
+        expect { delete :destroy, params: { question_id: second_question, id: attachment }, format: :js }.not_to change(Attachment, :count)
       end
     end
   end
