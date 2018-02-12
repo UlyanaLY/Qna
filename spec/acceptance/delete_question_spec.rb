@@ -15,7 +15,7 @@ feature 'Delete question', %q{
     sign_in(user)
 
     visit questions_path
-    click_on 'Удалить'
+    click_on 'Delete'
 
     expect(page).to have_content 'Question was successfully destroyed.'
     expect(page).not_to have_content question.title
@@ -26,12 +26,12 @@ feature 'Delete question', %q{
     sign_in(second_user)
 
     visit questions_path
-    expect(page).to_not have_content 'Удалить'
+    expect(page).to_not have_content 'Delete'
   end
 
   scenario 'Non-authenticated user try to delete question' do
     visit questions_path
 
-    expect(page).to_not have_content 'Удалить'
+    expect(page).to_not have_content 'Delete'
   end
 end

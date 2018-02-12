@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AttachmentsController, type: :controller do
@@ -5,12 +7,10 @@ RSpec.describe AttachmentsController, type: :controller do
   let(:question) { create(:question, user: user) }
   let(:attachment) { create(:attachment, attachable: question) }
   let(:invalid_user) { create(:user) }
-  let(:second_question) { create( :question, user: invalid_user) }
+  let(:second_question) { create(:question, user: invalid_user) }
   let(:second_attachment) { create(:attachment, attachable: second_question) }
 
   describe 'DELETE #destroy' do
-
-
     context 'valid user' do
       sign_in_user
       before { question }

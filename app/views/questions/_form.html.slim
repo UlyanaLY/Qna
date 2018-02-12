@@ -7,11 +7,7 @@
     = f.label :body
     = f.text_area :body
   p Attachments:
-  p
-    = f.fields_for :attachments do |a|
-      = render 'questions/attachment_fields', f: a
-    .links
-      = link_to_add_association "add attachment", f, :attachments, force_non_association_create: true
+  = render 'common/edit_attachment_form', f: f
 
   p
-    = f.submit "#{ @question.new_record? ? 'Create' : 'Edit' } "
+    = f.submit "#{ @question.new_record? ? 'Create' : 'Save' } "

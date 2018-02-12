@@ -6,8 +6,8 @@ ul
       .question
       - if current_user&.author_of?(question)
         p
-          = link_to 'Редактировать', edit_question_path(question)
+          = link_to 'Edit', edit_question_path(question)
         p
-          = link_to 'Удалить', question, remote: true, method: :delete, data: { question_id: question.id }
+          = link_to 'Delete', question, remote: true, method: :delete, data: { question_id: question.id }
 p
 =link_to "Ask question", new_question_path

@@ -19,4 +19,8 @@ class Answer < ApplicationRecord
       update!(best: true)
     end
   end
+
+  def matched_user?(current_user)
+    current_user.id == user_id
+  end
 end

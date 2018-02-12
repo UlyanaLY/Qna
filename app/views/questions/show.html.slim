@@ -1,14 +1,4 @@
-div
-  = @question.title
-div
-  = @question.body
-div Attachments
-ul
-  - @question.attachments.each do |attachment|
-      div id="question_attachment-id-#{attachment.id}"
-        p= link_to attachment.file.identifier, attachment.file.url
-        p= link_to 'Удалить', attachment, remote: true, method: :delete, data: { attachmnet_id: attachment.id }
-
+= render @question
 
 .answers
   = render @question.answers.sort_by_best
@@ -23,7 +13,7 @@ ul
       = render 'answers/attachment_fields', f: a
     .links
       =link_to_add_association 'add attachment', f, :attachments
-  p= f.submit 'Create'
+  p = f.submit 'Create'
 
     .back
       =link_to 'Назад', questions_path

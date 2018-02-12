@@ -1,0 +1,5 @@
+= f.fields_for :attachments do |attach|
+  .nested-fields
+    p
+      =>attach.object.file.filename
+p= link_to_add_association 'add attachment', f, :attachments, partial:'common/file_fields'
