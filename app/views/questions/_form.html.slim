@@ -6,4 +6,8 @@
   p
     = f.label :body
     = f.text_area :body
-    = f.submit "#{ @question.new_record? ? 'Create' : 'Edit'} "
+  p Attachments:
+  = render 'common/edit_attachment_form', f: f
+
+  p
+    = f.submit "#{ @question.new_record? ? 'Create' : 'Save' } "

@@ -1,18 +1,19 @@
-div
-  = @question.title
-div
-  = @question.body
+= render @question
 
 .answers
   = render @question.answers.sort_by_best
 
 = form_for [@question, @answer], remote: true do |f|
-  p
+  .field
     = f.label :body, 'Your answer'
   .answer-errors
     = f.text_area :body
-  p
-    = f.submit 'Create'
+  .attachments
+    = f.fields_for :attachments do |a|
+      = render 'answers/attachment_fields', f: a
+    .links
+      =link_to_add_association 'add attachment', f, :attachments
+  p = f.submit 'Create'
 
     .back
       =link_to 'Назад', questions_path

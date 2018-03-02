@@ -10,11 +10,13 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.new
+    @answer = @question.answers.build
+    @answer.attachments.new
   end
 
   def new
     @question = Question.new
+    @question.attachments.build
   end
 
   def edit; end
@@ -58,7 +60,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, attachments_attributes: %i[file id _destroy])
   end
 
   def verify_user
