@@ -6,7 +6,9 @@
         div id="answer_attachment-id-#{a.id}"
           li= link_to a.file.identifier, a.file.url
           p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
-
+    - if user_signed_in? &&!current_user&.author_of?(answer)
+        = button_to '+', voteup_answer_path(answer), method: :post, data: {type: :json}, remote: true
+        = button_to ' - ', votedown_answer_path(answer), method: :post, data: {type: :json}, remote: true
     - if current_user&.author_of?(answer)
       p
         = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }

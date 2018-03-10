@@ -3,7 +3,7 @@
 .answers
   = render @question.answers.sort_by_best
 
-= form_for [@question, @answer], remote: true do |f|
+= form_for [@question, @answer], remote: true, data: { type: :json }  do |f|
   .field
     = f.label :body, 'Your answer'
   .answer-errors

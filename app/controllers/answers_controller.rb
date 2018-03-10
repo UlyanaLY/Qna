@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!
   before_action :set_answer, only: %i[show destroy update accept_answer]
   before_action :set_question, only: %i[new create accept_answer]
@@ -8,6 +10,15 @@ class AnswersController < ApplicationController
   def create
     @answer = current_user.answers.build(answer_params)
     @answer.question = @question
+
+    respond_to do |format|
+      if @answer.save
+        format.html { j render @question.answers.sort_by_best, layout: false }
+        format.json { render json: @answer}
+      else
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
 
     flash[:notice] = 'Answer was successfully created.' if @answer.save && current_user.author_of?(@answer)
   end
