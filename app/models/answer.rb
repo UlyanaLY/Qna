@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Answer < ApplicationRecord
-  include Voted
+  include Votable
   belongs_to :question
   belongs_to :user
   has_many :attachments, as: :attachable

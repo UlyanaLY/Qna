@@ -12,11 +12,19 @@ $ ->
     $('.answer_error').remove()
 
   .bind 'ajax:error', (e, xhr, status, error) ->
-    console.log(xhr.responseText)
+
     errors = $.parseJSON(xhr.responseText);
     $.each errors, (index, value) ->
       $('.answers').append('<p class="answer_error">'+value+'</p>')
 
+  $('.rating a').click (e) ->
+    e.preventDefault();
+    $(this).bind 'ajax:success', (e, data, status, xhr) ->
+      point = $.parseJSON(xhr.responseText);
+      answer_id = $(this).data('answerId')
+      $('#answer_rate-id-'+ answer_id+ '').html(point)
+  .bind 'ajax:error', (e, xhr, status, error) ->
+    errors = $.parseJSON(xhr.responseText);
+    console.log(errors);
 
 
-    

@@ -9,16 +9,14 @@ Rails.application.routes.draw do
       post :votedown
     end
   end
-
-
-  resources :questions, concerns: [:votable], shallow: true do
-    resources :answers, concerns: [:votable], only: %i[create update destroy] do
+  resources :questions,  concerns: [:votable] do
+    resources :answers, concerns: [:votable], shallow: true, only: %i[create update destroy] do
       post :accept_answer, on: :member
     end
   end
+
   resources :attachments
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   root to: 'questions#index'
 end

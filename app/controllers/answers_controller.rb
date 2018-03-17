@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_answer, only: %i[show destroy update accept_answer]
-  before_action :set_question, only: %i[new create accept_answer]
+  before_action :set_question, only: %i[new create]
 
   def create
     @answer = current_user.answers.build(answer_params)
@@ -39,6 +39,7 @@ class AnswersController < ApplicationController
   end
 
   def accept_answer
+    @question = @answer.question
     return unless current_user.author_of?(@question)
 
     @answer = @question.answers.find(params[:id])
