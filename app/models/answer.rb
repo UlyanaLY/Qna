@@ -2,7 +2,8 @@
 
 class Answer < ApplicationRecord
   include Votable
-  belongs_to :question
+
+  belongs_to :question, optional: true
   belongs_to :user
   has_many :attachments, as: :attachable
 

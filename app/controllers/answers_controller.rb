@@ -40,10 +40,13 @@ class AnswersController < ApplicationController
 
   def accept_answer
     @question = @answer.question
-    return unless current_user.author_of?(@question)
 
-    @answer = @question.answers.find(params[:id])
-    @answer.set_as_best
+    if current_user.author_of?(@question)
+      @answer = @question.answers.find(params[:id])
+      @answer.set_as_best
+    else
+      flash[:notice] = 'You can\'t accept the answer for the question, that is not yours'
+    end
   end
 
   protected

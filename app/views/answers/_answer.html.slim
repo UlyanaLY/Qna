@@ -23,6 +23,6 @@
       p
         = link_to 'Delete', answer, remote: true, method: :delete, data: { confirm: "You sure?" }
 
-        - if current_user&.author_of?(answer.question) && ! answer.best?
-        p= answer.id
-        p= button_to 'Accept answer', accept_answer_answer_path(answer), remote: true
+    - if current_user&.author_of?(answer.question) && !answer.best?
+      p= answer.id
+      p= button_to 'Accept answer', accept_answer_answer_path(answer), remote: true

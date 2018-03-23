@@ -3,16 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  it_should_behave_like 'voted'
+
   let(:user) { @user || create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
   let(:invalid_user) { create(:user) }
+  let!(:second_question) { create(:question, user: invalid_user)}
   let(:second_answer) { create(:answer, question: question, user: invalid_user) }
 
   describe 'POST #create' do
     sign_in_user
 
-    let(:create_answer) { post :create, params: { question_id: question, answer: attributes_for(:answer) }, format: :js }
+    let(:create_answer) { post :create, params: { question_id: question, answer: attributes_for(:answer) }, format: :json }
     context 'with valid attributes' do
       it 'saves the new answer in the database' do
         expect { create_answer }.to change(question.answers, :count).by(1)
@@ -30,7 +33,7 @@ RSpec.describe AnswersController, type: :controller do
     context 'with invalid attributes' do
       sign_in_user
       it 'does not save the answer' do
-        expect { post :create, params: { question_id: question, answer: attributes_for(:invalid_answer) }, format: :js }.to_not change(Answer, :count)
+        expect { post :create, params: { question_id: question, answer: attributes_for(:invalid_answer) }, format: :json }.to_not change(Answer, :count)
       end
 
       it 'render create template' do
@@ -107,10 +110,8 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     it 'user can\'t accept answer for someone else\'s  question as best' do
-      second_question = create(:question, user: invalid_user)
 
-      post :accept_answer, params: { id: answer, question_id: second_question, format: :js }
-
+      post :accept_answer, params: { id: second_answer, question_id: second_question, format: :js }
       answer.reload
       expect(answer.best).to be_falsey
     end

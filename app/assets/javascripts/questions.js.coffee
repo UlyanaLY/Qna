@@ -7,4 +7,4 @@ $ ->
       $('#question_rate-id-'+ question_id+ '').html(point)
     .bind 'ajax:error', (e, xhr, status, error) ->
     errors = $.parseJSON(xhr.responseText);
-    console.log(errors);
+

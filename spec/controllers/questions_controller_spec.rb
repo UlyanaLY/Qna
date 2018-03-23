@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+  it_should_behave_like 'voted'
+
   let(:user) { @user || create(:user) }
   let(:question) { create(:question, user: user) }
   let(:invalid_user) { create(:user) }
