@@ -63,6 +63,8 @@ gem 'cocoon'
 gem 'remotipart'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+
+
 group :test, :development do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
