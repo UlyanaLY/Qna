@@ -7,18 +7,11 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[show destroy update accept_answer]
   before_action :set_question, only: %i[new create]
 
+  after_action :publish_answer, only: %i[create]
+
   def create
     @answer = current_user.answers.build(answer_params)
     @answer.question = @question
-
-    respond_to do |format|
-      if @answer.save
-        format.html { j render @question.answers.sort_by_best, layout: false }
-        format.json { render json: @answer}
-      else
-        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
 
     flash[:notice] = 'Answer was successfully created.' if @answer.save && current_user.author_of?(@answer)
   end
@@ -50,6 +43,20 @@ class AnswersController < ApplicationController
   end
 
   protected
+  def publish_answer
+    return if @answer.errors.any?
+    attachments = @answer.attachments.map do |attach|
+      { id: attach.id, filename: attach.file.filename, url: attach.file.url }
+    end
+    data = @answer.as_json(include: :attachments).merge(answer: @answer,
+                                                        voted: @answer.matched_user?(current_user),
+                                                        rating: @answer.rate)
+
+
+    ActionCable.server.broadcast("questions_#{@question.id}",
+                                 data: data
+    )
+  end
 
   def set_question
     @question = Question.find(params[:question_id])

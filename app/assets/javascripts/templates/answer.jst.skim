@@ -1,0 +1,9 @@
+- body = @data['body']
+- best = @data['best']
+- answer_user_id = @data['user_id']
+- answer = @data['answer']
+
+- if answer.persisted?
+    div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}"
+    p = answer.body
+    p = answer.body

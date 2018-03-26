@@ -5,17 +5,6 @@ $ ->
     answer_id = $(this).data('answerId')
     $('form#edit-answer-' + answer_id).show()
 
-  $('form.new_answer').bind 'ajax:success', (e, data, status, xhr) ->
-    answer = $.parseJSON(xhr.responseText)
-    console.log(status);
-    $('.answers').append('<p>'+answer.body+'</p>')
-    $('.answer_error').remove()
-
-  .bind 'ajax:error', (e, xhr, status, error) ->
-    errors = $.parseJSON(xhr.responseText);
-    $.each errors, (index, value) ->
-      $('.answers').append('<p class="answer_error">'+value+'</p>')
-
   $('.rating a').click (e) ->
     e.preventDefault();
     $(this).bind 'ajax:success', (e, data, status, xhr) ->
@@ -25,4 +14,17 @@ $ ->
   .bind 'ajax:error', (e, xhr, status, error) ->
     errors = $.parseJSON(xhr.responseText);
 
-
+  App.cable.subscriptions.create('AnswersChannel', {
+    connected: ->
+      console.log('connected llllllll')
+      questionId = $('div.question').data('id')
+      if(questionId)
+        console.log('connected answers')
+        this.perform('follow', { id: questionId })
+    ,
+    received: (data) ->
+      current_user_id = gon.current_user_id
+      console.log(data)
+      if (current_user_id != data['user_id'] || !gon.is_user_signed_in)
+        $('div.answers').append(JST["templates/answer"](data))
+  })
