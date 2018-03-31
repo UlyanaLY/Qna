@@ -4,10 +4,10 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!
-  before_action :set_answer, only: %i[show destroy update accept_answer]
+  before_action :set_answer, only: %i[show destroy update accept_answer ]
   before_action :set_question, only: %i[new create]
 
-  after_action :publish_answer, only: %i[create]
+  after_action :publish_answer, only: %i[create voteup votedown]
 
   def create
     @answer = current_user.answers.build(answer_params)
@@ -44,18 +44,29 @@ class AnswersController < ApplicationController
 
   protected
   def publish_answer
-    return if @answer.errors.any?
-    attachments = @answer.attachments.map do |attach|
-      { id: attach.id, filename: attach.file.filename, url: attach.file.url }
-    end
-    data = @answer.as_json(include: :attachments).merge(answer: @answer,
-                                                        voted: @answer.matched_user?(current_user),
-                                                        rating: @answer.rate)
+      if @answer.nil?
+        set_answer
+        @question = @answer.question
+        created = false
+      else
+        created = true
+      end
+      return if @answer.errors.any?
 
+      data = @answer.as_json(include: :attachments).merge(answer: @answer,
+                                                          voted: @answer.matched_user?(current_user),
+                                                          rate: @answer.rate,
+                                                          created: created,
+                                                          question_user: @answer.question.user.id,
+                                                          attachments: @answer.attachments.map do |attach|
+                                                            { id: attach.id, filename: attach.file.filename, url: attach.file.url }
+                                                          end
 
-    ActionCable.server.broadcast("questions_#{@question.id}",
-                                 data: data
-    )
+      )
+      logger.debug data
+      ActionCable.server.broadcast("questions_#{@question.id}",
+                                   data: data
+      )
   end
 
   def set_question

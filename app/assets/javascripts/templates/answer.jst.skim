@@ -1,9 +1,40 @@
 - body = @data['body']
-- best = @data['best']
+- question_id = @data['question_id']
 - answer_user_id = @data['user_id']
 - answer = @data['answer']
+- attachments = @data['attachments']
+- best = @data['best']
+- rate = @data['rate']
+-created = @data['created']
+- question_user =@data['question_user']
 
-- if answer.persisted?
-    div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}"
-    p = answer.body
-    p = answer.body
+div id="answer-id-#{answer.id}" class="#{'best_answer' if best}"
+    p = body
+    - if attachments.length
+        ul
+            - $.each attachments, (index, file)=>
+                li
+                    a href="#{file.url}" #{file.filename}
+    p  id="answer_rate-id-#{answer.id}" = rate
+    - if gon.current_user_id != answer_user_id
+        div  class = "rating"
+            a href="/answers/#{answer.id}/voteup" data-method="post" data-type="json" data-answer-id="#{answer.id}" data-remote="true"
+                input data-remote="true" type="submit" value="+up"
+            a href="/answers/#{answer.id}/votedown" data-method="post" data-type="json" data-answer-id="#{answer.id}" data-remote="true"
+                input data-remote="true" type="submit" value="-down"
+    - if gon.current_user_id == answer_user_id
+        p
+            a href="" class = "edit-answer-link" data-answer-id="#{answer.id}" Edit
+
+        p
+            form.edit_answer id="edit-answer-#{answer.id}" ectype = "multipart/form-data" action="/answers/#{answer.id}" accept-charset="UTF-8"  data-remote="true" method="post"
+                input name="utf8" value="✓" type="hidden"
+                input name="_method" value="patch" type="hidden"
+                label for="answer_body" Answer
+                textarea id="answer_body" name="answer[body]" #{body}
+                input name="commit" value="Save" data-disable-with="Save" type="submit"
+        p
+            a href="/answers/#{answer.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete
+    - if gon.current_user_id == question_user
+        form.button_to method="post" action="/answers/#{answer.id}/accept_answer" data-remote="true"
+            input type="submit" value="Accept answer"
