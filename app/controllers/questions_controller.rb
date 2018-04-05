@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: %i[show edit update destroy]
   before_action :verify_user, only: %i[update destroy]
 
-  after_action :publish_question, only: %i[create]
+  after_action :publish_question, only: %i[create show]
 
   def index
     @questions = Question.all
@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = @question.answers.build
     @answer.attachments.new
+    @question.comments.new
   end
 
   def new
@@ -73,13 +74,26 @@ class QuestionsController < ApplicationController
   end
 
   def publish_question
-    return if @question.errors.any?
-    ActionCable.server.broadcast(
-        'questions',
-        ApplicationController.render(
-            partial: 'common/question_list',
-            locals: {question: @question}
-        )
-    )
+      if @question.nil?
+        load_question
+        created = false
+      else
+        created = true
+      end
+      return if @question.errors.any?
+
+      data = @question.as_json(include: :attachments).merge(answer: @question,
+                                                          voted: @question.matched_user?(current_user),
+                                                          rate: @question.rate,
+                                                          created: created,
+                                                          question_user: @question.user.id,
+                                                          attachments: @question.attachments.map do |attach|
+                                                            { id: attach.id, filename: attach.file.filename, url: attach.file.url }
+                                                          end
+
+      )
+      ActionCable.server.broadcast("questions_#{@question.id}",
+                                   data: data
+      )
   end
 end

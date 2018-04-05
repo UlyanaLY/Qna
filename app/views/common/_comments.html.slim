@@ -1,0 +1,16 @@
+p Comments
+.comments data-id="#{resource.id}" id="comments_for_-#{resource.id}"
+    - if resource.comments.present?
+
+    - resource.comments.each do |comment|
+      div
+        p.comment-body= comment.body
+        p
+          = comment.id
+      p
+        = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
+-if user_signed_in?
+    = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|
+        = f.text_area :body
+        br
+        = f.submit 'Place a comment'

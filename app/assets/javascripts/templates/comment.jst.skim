@@ -1,0 +1,2 @@
+div
+    p.comment-body= @comment.body

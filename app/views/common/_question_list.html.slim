@@ -2,7 +2,6 @@ li
   div id="question-id-#{question.id}"
     = link_to question.title, question
     .question
-    - if current_user&.author_of?(question)
       p
         = link_to 'Edit', edit_question_path(question)
       p
