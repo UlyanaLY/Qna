@@ -16,6 +16,7 @@ $ ->
 
   App.cable.subscriptions.create('AnswersChannel', {
     connected: ->
+      console.log('connected answers')
       questionId = $('div.question').data('id')
       this.perform('follow', { id: questionId })
 

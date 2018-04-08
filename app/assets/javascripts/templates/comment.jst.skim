@@ -1,2 +1,4 @@
 div
-    p.comment-body= @comment.body
+    p.comment-body =@comment.body
+    p
+      a href="/#{@comment.commentable_type.toLowerCase()}s/#{@commentable.id}/comments/#{@comment.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete

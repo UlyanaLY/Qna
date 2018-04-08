@@ -2,7 +2,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show update destroy]
   before_action :set_commentable, only: %i[create destroy]
   before_action :set_comment, only: %i[destroy]
-  after_action :publish_comment
+  after_action :publish_comment,  only: %i[create]
+  after_action :destroy_comment,  only: %i[destroy]
 
   def create
     @comment = @commentable.comments.new(comment_params)
@@ -21,16 +22,34 @@ class CommentsController < ApplicationController
 
   private
 
-  def publish_comment
+  def destroy_comment
     return if @comment.errors.any?
-
+    the_method = "destroyed"
     data = {
         commentable_id: @commentable.id,
         commentable_type: @comment.commentable_type.underscore,
+        the_method: the_method,
         comment: @comment,
         user_email: @comment.user.email
     }
-    ActionCable.server.broadcast( "comments_for_#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
+    ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
+                                  data
+    )
+  end
+
+  def publish_comment
+    return if @comment.errors.any?
+    the_method =  "created"
+
+    data = {
+        commentable_id: @commentable.id,
+        commentable: @commentable,
+        commentable_type: @comment.commentable_type.underscore,
+        the_method: the_method,
+        comment: @comment,
+        user_email: @comment.user.email
+    }
+    ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
                                   data
     )
   end

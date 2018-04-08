@@ -17,4 +17,5 @@ div class="question" id="question-id-#{@question.id}" data-id="#{@question.id}"
           p id="question_rate-id-#{question.id}" = @question.rate
           p = link_to 'up+', voteup_question_path(@question), method: :post, data: {type: :json, question_id: @question.id}, remote: true
           p = link_to 'down-', votedown_question_path(@question), method: :post, data: {type: :json, question_id: @question.id}, remote: true
+
   =render 'common/comments', resource: @question

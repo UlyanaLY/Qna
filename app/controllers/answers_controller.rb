@@ -60,9 +60,6 @@ class AnswersController < ApplicationController
                                                           question_user: @answer.question.user.id,
                                                           attachments: @answer.attachments.map do |attach|
                                                             { id: attach.id, filename: attach.file.filename, url: attach.file.url }
-                                                          end,
-                                                          comments: @answer.comments.map do |comment|
-                                                            { id: comment.id, body: comment.body  }
                                                           end
 
       )

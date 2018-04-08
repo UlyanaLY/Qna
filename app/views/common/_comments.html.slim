@@ -1,14 +1,13 @@
 p Comments
-.comments data-id="#{resource.id}" id="comments_for_-#{resource.id}"
+.comments data-id="#{resource.id}"
     - if resource.comments.present?
 
     - resource.comments.each do |comment|
-      div
+      div id="comment-id-#{resource.id}-#{comment.id}"
         p.comment-body= comment.body
-        p
-          = comment.id
-      p
-        = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
+        - if comment.persisted?
+          p
+            = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
 -if user_signed_in?
     = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|
         = f.text_area :body
