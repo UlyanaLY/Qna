@@ -1,28 +1,30 @@
 - if answer.persisted?
   div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}"
-    p = answer.body
-    ul
-      - answer.attachments.each do |a|
-        div id="answer_attachment-id-#{a.id}"
-          li= link_to a.file.identifier, a.file.url
-          p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
-      - if user_signed_in? &&!current_user&.author_of?(answer)
-         div  class="rating"
-            p id="answer_rate-id-#{answer.id}" = answer.rate
-            p = link_to 'up+', voteup_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
-            p = link_to 'down-', votedown_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
-    - if current_user&.author_of?(answer)
-      p
-        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      p
-        = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"}  do |f|
-          = f.label :body, "Answer"
-          = f.text_area :body
-          = render 'common/edit_attachment_form', f: f
-          = f.submit 'Save'
-      p
-        = link_to 'Delete', answer, remote: true, method: :delete, data: { confirm: "You sure?" }
+    div class = 'answer-container-#{answer.id}'
+      p = answer.body
+      ul
+        - answer.attachments.each do |a|
+          div id="answer_attachment-id-#{a.id}"
+            li= link_to a.file.identifier, a.file.url
+            p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
+        - if user_signed_in? &&!current_user&.author_of?(answer)
+           div  class="rating"
+              p id="answer_rate-id-#{answer.id}" = answer.rate
+              p = link_to 'up+', voteup_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
+              p = link_to 'down-', votedown_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
+      - if current_user&.author_of?(answer)
+        p
+          = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+        p
+          = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"}  do |f|
+            = f.label :body, "Answer"
+            = f.text_area :body
+            = render 'common/edit_attachment_form', f: f
+            = f.submit 'Save'
+        p
+          = link_to 'Delete', answer, remote: true, method: :delete, data: { confirm: "You sure?" }
 
-    - if current_user&.author_of?(answer.question) && !answer.best?
-      p= answer.id
-      p= button_to 'Accept answer', accept_answer_answer_path(answer), remote: true
+      - if current_user&.author_of?(answer.question) && !answer.best?
+        p= answer.id
+        p= button_to 'Accept answer', accept_answer_answer_path(answer), remote: true
+      = render 'common/comments', resource: answer

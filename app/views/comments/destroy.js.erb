@@ -1,1 +1,5 @@
-$('#comment-id-<%= @commentable.id %>-<%= @comment.id %>').remove();
+<% if @commentable_type == 'Question'%>
+  $('#comment-id-<%= @commentable.id %>-<%= @comment.id %>').remove();
+<% elsif  @commentable_type == 'Answer' %>
+  $('div.answer-container-<%= @comment.commentable.id %> > div.comments div:last-child').remove();
+<% end %>

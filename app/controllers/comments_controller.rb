@@ -26,13 +26,14 @@ class CommentsController < ApplicationController
     return if @comment.errors.any?
     the_method = "destroyed"
     data = {
-        commentable_id: @commentable.id,
+        comment: @comment,
+        commentable_id: @comment.commentable.id,
         commentable_type: @comment.commentable_type.underscore,
         the_method: the_method,
-        comment: @comment,
+        comment_id: @comment.id,
         user_email: @comment.user.email
     }
-    ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
+    ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @comment.commentable.id : @comment.commentable.question_id}",
                                   data
     )
   end
@@ -47,6 +48,7 @@ class CommentsController < ApplicationController
         commentable_type: @comment.commentable_type.underscore,
         the_method: the_method,
         comment: @comment,
+        comment_id: @comment.id,
         user_email: @comment.user.email
     }
     ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
