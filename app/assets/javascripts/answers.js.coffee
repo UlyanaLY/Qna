@@ -5,6 +5,18 @@ $ ->
     answer_id = $(this).data('answerId')
     $('form#edit-answer-' + answer_id).show()
 
+  $(document).on 'ajax:success', 'form.new_answer', (e, data, status, xhr) ->
+    console.log(status);
+    answer = $.parseJSON(xhr.responseText)
+
+    $('.answers').append('<p>'+answer.body+'</p>')
+    $('.answer_error').remove()
+
+  $(document).on 'ajax:error', 'form.new_answer', (e, xhr, status, error) ->
+      errors = $.parseJSON(xhr.responseText);
+      $.each errors, (index, value) ->
+        $('.answers').append('<p class="answer_error">'+value+'</p>')
+
   $('.rating a').click (e) ->
       e.preventDefault();
       $(this).bind 'ajax:success', (e, data, status, xhr) ->
@@ -25,9 +37,10 @@ $ ->
       current_user_id = gon.current_user_id
       console.log(current_user_id)
       console.log(data.data.user_id)
-      console.log(data.data.is_user_signed_in?)
-      if (current_user_id != data['user_id'] || !gon.is_user_signed_in)
+      console.log(current_user_id != data.data.user_id)
+      if (current_user_id != data.data.user_id)
         if data.data.created
+          console.log('JST TEMPLATE')
           $('div.answers').append(JST["templates/answer"](data))
         else
           $('div.answers div:last-child').replaceWith(JST["templates/answer"](data))
