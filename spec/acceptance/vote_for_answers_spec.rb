@@ -35,6 +35,7 @@ feature 'vote for question', %q{
     scenario 'Authenticated user try vote for the answer that is not his own', js: true do
       within "#answer-id-#{answer.id} div.rating" do
         click_on 'up+'
+        sleep 1
         expect(page).to have_content "1"
       end
     end

@@ -1,0 +1,8 @@
+li
+  div id="question-id-#{question.id}"
+    = link_to question.title, question
+    .question
+      p
+        = link_to 'Edit', edit_question_path(question)
+      p
+        = link_to 'Delete', question, remote: true, method: :delete, data: { question_id: question.id }

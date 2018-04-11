@@ -9,14 +9,20 @@ Rails.application.routes.draw do
       post :votedown
     end
   end
-  resources :questions,  concerns: [:votable] do
-    resources :answers, concerns: [:votable], shallow: true, only: %i[create update destroy] do
+
+  concern :commentable do
+    resources :comments,  only: %i[create update destroy]
+  end
+
+  resources :questions,  concerns: [:votable, :commentable] do
+    resources :answers, concerns: [:votable, :commentable], shallow: true, only: %i[create update destroy] do
       post :accept_answer, on: :member
     end
   end
 
   resources :attachments
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'questions#index'
+
+  mount ActionCable.server => '/cable'
 end

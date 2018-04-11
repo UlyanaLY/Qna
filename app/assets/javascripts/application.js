@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require action_cable
 //= require jquery.remotipart
 //= require cocoon
+//= require skim
 //= require_tree .
