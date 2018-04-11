@@ -63,7 +63,7 @@ class AnswersController < ApplicationController
       end
       return if @answer.errors.any?
 
-      data = @answer.as_json(include: :attachments).merge(answer: @answer,
+      data = @answer.as_json(include: :attachments).merge(
                                                           voted: @answer.matched_user?(current_user),
                                                           rate: @answer.rate,
                                                           created: created,
