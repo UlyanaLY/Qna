@@ -9,7 +9,7 @@
   .answer-errors
     = f.text_area :body
   .attachments
-    = f.fields_for :attachments do |a|
+    = f.fields_for :attachments, @answer.attachments.new do |a|
       = render 'answers/attachment_fields', f: a
     .links
       =link_to_add_association 'add attachment', f, :attachments

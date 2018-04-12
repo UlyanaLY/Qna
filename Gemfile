@@ -36,6 +36,7 @@ gem 'devise'
 gem 'slim-rails'
 gem 'skim'
 gem 'gon'
+gem 'responders'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

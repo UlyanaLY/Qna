@@ -20,6 +20,7 @@ feature 'Add files to question answer', %q{
     scenario 'User adds one file when asks question', js: true do
       attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
       click_on 'Create'
+      visit current_path
 
       within '.answers' do
         expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
@@ -32,6 +33,7 @@ feature 'Add files to question answer', %q{
         inputs[0].set("#{Rails.root}/spec/spec_helper.rb")
         inputs[1].set("#{Rails.root}/spec/rails_helper.rb")
         click_on 'Create'
+        visit current_path
       end
 
       expect(page).to have_content 'spec_helper.rb'
