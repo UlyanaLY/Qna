@@ -13,10 +13,10 @@ RSpec.describe CommentsController, type: :controller do
     sign_in_user
     context'with valid attributes' do
       it 'saves a new comment to database' do
-        expect { post :create, params: { answer_id: answer, format: :js, comment: attributes_for(:comment) } }
+        expect { post :create, params: { answer_id: answer, format: :json, comment: attributes_for(:comment) } }
             .to change(Comment, :count).by(1)
 
-        expect { post :create, params: { question_id: question, format: :js, comment: attributes_for(:comment) } }
+        expect { post :create, params: { question_id: question, format: :json, comment: attributes_for(:comment) } }
             .to change(Comment, :count).by(1)
       end
     end

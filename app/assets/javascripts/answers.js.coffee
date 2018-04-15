@@ -6,9 +6,7 @@ $ ->
     $('form#edit-answer-' + answer_id).show()
 
   $(document).on 'ajax:success', 'form.new_answer', (e, data, status, xhr) ->
-    console.log(status);
     answer = $.parseJSON(xhr.responseText)
-
     $('.answers').append('<p>'+answer.body+'</p>')
     $('.answer_error').remove()
 

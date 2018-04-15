@@ -65,6 +65,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
+OmniAuth.config.test_mode = true
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     # Choose a test framework:
