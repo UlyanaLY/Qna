@@ -19,9 +19,13 @@ class User < ApplicationRecord
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
-    return unless auth.info && auth.info[:email]
 
-    email = auth.info[:email]
+
+    if auth.info[:email]
+      email = auth.info[:email]
+    else
+      email = auth.info[:name] + '@gmail.com'
+    end
     user = User.where(email: email).first
     if user
       user.create_authorization(auth)
