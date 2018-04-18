@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  respond_to :json
+
   before_action :authenticate_user!, except: %i[index show update destroy]
   before_action :set_commentable, only: %i[create destroy]
   before_action :set_comment, only: %i[destroy]
@@ -6,18 +8,14 @@ class CommentsController < ApplicationController
   after_action :destroy_comment,  only: %i[destroy]
 
   def create
-    @comment = @commentable.comments.new(comment_params)
+    @comment = @commentable.comments.create(comment_params.merge(user_id: current_user.id))
     @comment.user = current_user
-    if @comment.save
-      render json: { body: @comment.body }
-    else
-      render json: @comment.errors.full_messages
-    end
+    respond_with(@comment)
   end
 
   def destroy
-      @comment.destroy
-      flash[:notice] = 'Comment was successfully destroyed.'
+    @commentable = @comment.commentable
+    respond_with(@comment.destroy) if current_user.author_of?(@comment)
   end
 
   private

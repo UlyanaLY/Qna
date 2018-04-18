@@ -3,59 +3,41 @@
 class QuestionsController < ApplicationController
   include Voted
 
+  respond_to :html, :json, :js
+
   before_action :authenticate_user!, except: %i[index show]
   before_action :load_question, only: %i[show edit update destroy]
-  before_action :verify_user, only: %i[update destroy]
+  before_action :build_answer, only: %i[show]
 
   after_action :publish_question, only: %i[create]
 
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = @question.answers.build
-    @answer.attachments.new
-    @question.comments.new
+
+    respond_with (@question.comments.new)
   end
 
   def new
     @question = Question.new
-    @question.attachments.build
+    respond_with (@question.attachments.build)
   end
 
   def edit; end
 
   def create
-    @question = current_user.questions.build(question_params)
-    if @question.save
-      redirect_to @question, notice: 'Question was successfully created.'
-    else
-      render :new
-    end
+    respond_with( @question = current_user.questions.create(question_params))
   end
 
   def update
-    if verify_user
-      @question.update(question_params)
-      flash[:notice] = if @question.save
-                         'Question was successfully updated.'
-                       else
-                         'Body or title of question can\'t be blanck'
-                       end
-    else
-      flash[:notice] = 'You can\'t update question, that is no yours'
-    end
-    redirect_to @question
+    @question.update(question_params) if current_user.author_of?(@question)
+    respond_with @question
   end
 
   def destroy
-    if verify_user
-      @question.destroy
-      flash[:notice] = 'Question was successfully destroyed.'
-    else
-      flash[:notice] = 'You can\'t delete question, that is no yours'
-    end
+    respond_with(@question.destroy) if current_user.author_of?(@question)
   end
 
   private
@@ -65,12 +47,12 @@ class QuestionsController < ApplicationController
     gon.question_id = @question.id
   end
 
-  def question_params
-    params.require(:question).permit(:title, :body, attachments_attributes: %i[file id _destroy])
+  def build_answer
+    @answer = @question.answers.build
   end
 
-  def verify_user
-    current_user.author_of?(@question)
+  def question_params
+    params.require(:question).permit(:title, :body, attachments_attributes: %i[file id _destroy])
   end
 
   def publish_question
