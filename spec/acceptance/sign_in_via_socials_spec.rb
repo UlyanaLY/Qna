@@ -17,14 +17,6 @@ feature 'Sign in with social networks accounts', %q{
       expect(page).to have_content('Successfully authenticated from Vkontakte account.')
     end
 
-    scenario 'User is not registered yet and has an account without email', js: true do
-      mock_auth_hash(:vkontakte, nil)
-      visit new_user_session_path
-      save_and_open_page
-      click_on 'Sign in with Vkontakte'
-      expect(page).to have_content('Successfully authenticated from Vkontakte account.')
-    end
-
     scenario 'User is registered already', js: true do
       create(:user)
       auth = mock_auth_hash(:vkontakte, user.email)
