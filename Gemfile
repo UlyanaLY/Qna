@@ -37,6 +37,8 @@ gem 'slim-rails'
 gem 'skim'
 gem 'gon'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-vkontakte'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
