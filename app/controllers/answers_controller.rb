@@ -11,6 +11,8 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[show destroy update accept_answer ]
   after_action :publish_answer, only: %i[create]
 
+  authorize_resource
+
   def create
     @answer = current_user.answers.create(answer_params.merge(question_id: @question.id))
     @answer.question = @question

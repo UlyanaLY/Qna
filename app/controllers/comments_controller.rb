@@ -7,6 +7,8 @@ class CommentsController < ApplicationController
   after_action :publish_comment,  only: %i[create]
   after_action :destroy_comment,  only: %i[destroy]
 
+  authorize_resource
+
   def create
     @comment = @commentable.comments.create(comment_params.merge(user_id: current_user.id))
     respond_with(@comment)

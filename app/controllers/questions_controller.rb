@@ -11,12 +11,13 @@ class QuestionsController < ApplicationController
 
   after_action :publish_question, only: %i[create]
 
+  authorize_resource
+
   def index
     respond_with(@questions = Question.all)
   end
 
   def show
-
     respond_with (@question.comments.new)
   end
 
