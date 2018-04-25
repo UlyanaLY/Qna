@@ -23,8 +23,8 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment, Attachment]
-    can :update,[Question, Answer, Comment], user: user
-    can :destroy,[Question, Answer, Comment, Attachment], user: user
+    can :update,[Question, Answer, Comment], user_id: user.id
+    can :destroy,[Question, Answer, Comment, Attachment], user_id: user.id
 
     can :voteup, [Question, Answer] do |item|
       !user.author_of?(item)
