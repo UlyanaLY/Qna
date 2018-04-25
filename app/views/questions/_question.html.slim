@@ -9,10 +9,10 @@ div class="question" id="question-id-#{@question.id}" data-id="#{@question.id}"
       - @question.attachments.each do |attachment|
         div id="question_attachment-id-#{attachment.id}"
           p= link_to attachment.file.identifier, attachment.file.url
-        - if current_user&.author_of?(@question)
+        - if can?(:destroy, @question)
           p= link_to 'Удалить', attachment, remote: true, method: :delete, data: { attachmnet_id: attachment.id }
 
-      - if user_signed_in? &&!current_user&.author_of?(@question)
+      - if can?(:voteup, @question)
           div  class="rating"
             p id="question_rate-id-#{question.id}" = @question.rate
             p = link_to 'up+', voteup_question_path(@question), method: :post, data: {type: :json, question_id: @question.id}, remote: true

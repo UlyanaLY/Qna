@@ -4,10 +4,10 @@ ul.questions_list
       div id="question-id-#{question.id}"
         = link_to question.title, question
         .question
-        - if current_user&.author_of?(question)
+        - if can?(:destroy, question)
           p
             = link_to 'Edit', edit_question_path(question)
           p
             = link_to 'Delete', question, remote: true, method: :delete, data: { question_id: question.id }
-p
-  =link_to "Ask question", new_question_path
+  - if can?(:create, Question)
+    p= link_to 'Ask question', new_question_path
