@@ -40,6 +40,7 @@ gem 'responders'
 gem 'omniauth'
 gem 'omniauth-vkontakte'
 gem 'cancancan'
+gem 'doorkeeper', '4.2.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -83,4 +84,5 @@ end
 
 group :test do
   gem 'rails-controller-testing'
+  gem 'json_spec'
 end
