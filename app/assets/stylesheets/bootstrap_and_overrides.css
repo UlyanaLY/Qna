@@ -1,0 +1,76 @@
+/*
+  =require twitter-bootstrap-static/bootstrap
+
+  Static version of css will use Glyphicons sprites by default
+  =require twitter-bootstrap-static/sprites
+*/
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+.navbar-static-top {
+   font-size: 20px;
+    background-color: #563D7C;
+
+}
+
+ul.nav.navbar-nav li a{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: white;
+}
+
+.navbar a.navbar-brand {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.footer {
+    background-color: #563D7C;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin-top: -100px;
+    color: white;
+}
+.empty {
+    height: 120px;
+}
+.content {
+     min-height: 100vh;
+}
+/*
+  Question
+*/
+.page_question_title, h2 {
+    text-align: center;
+}
+.questions {
+    border: 2px solid black;
+    padding: 10px;
+
+}
+.answer, .form_gr {
+    border-top: 1px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+/*
+  Attachments
+*/
+.display_inline {
+    display: inline;
+    margin: 20px;
+}
+
+.btn {
+    margin: 30px 0;
+}

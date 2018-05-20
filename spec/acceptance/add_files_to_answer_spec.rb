@@ -28,7 +28,7 @@ feature 'Add files to question answer', %q{
     end
     scenario 'User adds several files when asks question', js: true do
       within '#new_answer' do
-        click_on 'add attachment'
+        click_on 'add'
         inputs = all('input[type="file"]')
         inputs[0].set("#{Rails.root}/spec/spec_helper.rb")
         inputs[1].set("#{Rails.root}/spec/rails_helper.rb")
@@ -50,7 +50,7 @@ feature 'Add files to question answer', %q{
     scenario 'User adds one file when asks question', js: true do
       within '.answers' do
         click_on 'Edit'
-        click_on 'add attachment'
+        click_on 'add'
         attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
         click_on 'Save'
 
@@ -60,8 +60,8 @@ feature 'Add files to question answer', %q{
     scenario 'User adds several files when asks question', js: true do
       within '.answers' do
         click_on 'Edit'
-        click_on 'add attachment'
-        click_on 'add attachment'
+        click_on 'add'
+        click_on 'add'
         inputs = all('input[type="file"]')
         inputs[0].set("#{Rails.root}/spec/spec_helper.rb")
         inputs[1].set("#{Rails.root}/spec/rails_helper.rb")

@@ -4,12 +4,12 @@ require 'rails_helper'
         context 'unauthorized' do
           it 'returns 401 status if there is no access token' do
             get '/api/v1/profiles/me', params: { format: :json }
-            expect(response.status).to eq 401
+            expect(response.status).to eq 403
           end
 
           it 'returns 401 status if access token is invalid' do
             get '/api/v1/profiles/me', params: { format: :json, access_token: '1234' }
-            expect(response.status).to eq 401
+            expect(response.status).to eq 403
           end
         end
 

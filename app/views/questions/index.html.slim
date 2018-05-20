@@ -1,13 +1,23 @@
-ul.questions_list
-  - @questions.each do |question|
-    li
-      div id="question-id-#{question.id}"
-        = link_to question.title, question
+table.table.table-hover
+   thead
+     tr
+       th.col-md-1 scope="col" Number
+       th.col-md-5 scope="col" Question
+       th.col-md-2 scope="col" Author
+       th.col-md-2 scope="col" Created
+       th.col-md-1 scope="col"
+       th.col-md-1 scope="col"
+   tbody
+     - @questions.each do |question|
+       tr id="question-id-#{question.id}"
+        th scope="row"
+          = question.id
+          td = link_to question.title, question
+          td = question.user.email
+          td = question.created_at
         .question
-        - if can?(:destroy, question)
-          p
-            = link_to 'Edit', edit_question_path(question)
-          p
-            = link_to 'Delete', question, remote: true, method: :delete, data: { question_id: question.id }
-  - if can?(:create, Question)
-    p= link_to 'Ask question', new_question_path
+          td = link_to 'Edit', edit_question_path(question) if can?(:destroy, question)
+          td = link_to 'Delete', question, remote: true, method: :delete, data: {question_id: question.id} if can?(:destroy, question)
+- if can?(:create, Question)
+  .btn.btn-primary.btn-lg.btn-block
+    = link_to 'Ask question', new_question_path

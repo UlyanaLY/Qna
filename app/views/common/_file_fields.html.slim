@@ -1,3 +1,5 @@
-.nested-fields
-  = f.label :file
-  = f.file_field :file
+.nested-fields.display_inline
+  .field
+    = f.label :file
+    = f.file_field :file
+  span = link_to_remove_association "remove", f, class: "btn btn-primary", role: "button"

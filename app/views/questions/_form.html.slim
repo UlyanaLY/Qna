@@ -1,13 +1,17 @@
 = form_for @question  do |f|
   =render 'common/errors', resource: @question
-  p
-    = f.label :title
-    = f.text_field :title
-  p
-    = f.label :body
-    = f.text_area :body
-  p Attachments:
-  = render 'common/edit_attachment_form', f: f
+  .form-group
+    h2
+      = f.label :title
+    p
+      = f.text_field :title, class: "form-control"
+  .form-group
+    h2
+      = f.label :body
+    p
+      = f.text_area :body, class: "form-control"
+    p Attachments:
+    = render 'common/edit_attachment_form', f: f
 
-  p
-    = f.submit "#{ @question.new_record? ? 'Create' : 'Save' } "
+    p
+      = f.submit "#{ @question.new_record? ? 'Create' : 'Save' } ", class: "btn btn-primary btn-lg btn-block", role: "button"
