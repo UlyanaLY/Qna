@@ -16,7 +16,7 @@ table.table.table-hover
           td = question.user.email
           td = question.created_at
         .question
-          td = link_to 'Edit', edit_question_path(question) if can?(:destroy, question)
+          td = link_to 'Edit', edit_question_path(question) if can?(:destroy, question) if can?(:destroy, question)
           td = link_to 'Delete', question, remote: true, method: :delete, data: {question_id: question.id} if can?(:destroy, question)
 - if can?(:create, Question)
   .btn.btn-primary.btn-lg.btn-block

@@ -36,6 +36,6 @@ class Ability
       user.author_of?(answer.question) && !answer.best?
     end
 
-    can :me, User, id: user.id
+    can :me, User, user_id: user.id
   end
 end
