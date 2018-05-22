@@ -1,6 +1,6 @@
 require_relative 'acceptance_helper'
 
-feature 'vote for question', %q{
+feature 'vote for answer', %q{
   In order to vote
   As an user
   I want to be able vote for answer
@@ -16,7 +16,15 @@ feature 'vote for question', %q{
     visit question_path(question)
 
     within "#answer-id-#{answer.id}" do
-      expect(page).to_not have_link 'up+'
+      expect(page).to_not have_css ("a i.fa.fa-angle-up")
+    end
+  end
+
+  scenario 'NonAuthenticated user try to vote for answer' do
+    visit question_path(question)
+
+    within "#answer-id-#{answer.id}" do
+      expect(page).to_not have_css ("a i.fa.fa-angle-up")
     end
   end
 
@@ -28,13 +36,13 @@ feature 'vote for question', %q{
 
     scenario 'Authenticated user sees button vote for the answer that is not his own', js: true do
       within "#answer-id-#{answer.id} div.rating" do
-        expect(page).to have_link 'up+'
+        expect(page).to have_css ("a i.fa.fa-angle-up")
       end
     end
 
     scenario 'Authenticated user try vote for the answer that is not his own', js: true do
       within "#answer-id-#{answer.id} div.rating" do
-        click_on 'up+'
+        find("a i.fa.fa-angle-up").click
         sleep 1
         expect(page).to have_content "1"
       end
@@ -42,26 +50,18 @@ feature 'vote for question', %q{
 
     scenario 'Authenticated user try to vote against the answer that is not his own', js: true do
       within "#answer-id-#{answer.id} div.rating" do
-        click_on '-'
+        find("a i.fa.fa-angle-down").click
         expect(page).to have_content "-1"
       end
     end
 
     scenario 'Authenticated user cancel vote for not own answer ', js: true do
       within "#answer-id-#{answer.id} div.rating" do
-        click_on '+'
+        find("a i.fa.fa-angle-up").click
         expect(page).to have_content "1"
 
-        click_on '-'
+        find("a i.fa.fa-angle-down").click
         expect(page).to have_content "0"
-      end
-    end
-
-    scenario 'NonAuthenticated user try to vote for answer' do
-      visit question_path(question)
-
-      within "#answer-id-#{answer.id} div.rating" do
-        expect(page).to_not have_link '+up'
       end
     end
   end

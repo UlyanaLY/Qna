@@ -2,4 +2,4 @@
   .nested-fields
     p
       =>attach.object.file.filename
-p= link_to_add_association 'add attachment', f, :attachments, partial:'common/file_fields'
+span= link_to_add_association 'add', f, :attachments, partial:'common/file_fields', class: "btn btn-primary", role: "button"

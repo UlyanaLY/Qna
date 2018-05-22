@@ -1,21 +1,24 @@
-p Comments
-.comments data-id="#{resource.id}"
-    - if resource.comments.present?
+.container
+  .row
+    .col
+      h4 Comments
+      .comments data-id="#{resource.id}"
+          - if resource.comments.present?
 
-    - resource.comments.each do |comment|
-      div id="comment-id-#{resource.id}-#{comment.id}"
-        p.comment-body= comment.body
-        - if comment.persisted?
-            - if comment.commentable_type == 'Answer'
-              p
-                = link_to 'Delete', comment, remote: true, method: :delete, data: {confirm: "You sure?"}
-            - else
-              - if comment.commentable_type == 'Question'
-                  p
-                    = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
+          - resource.comments.each do |comment|
+            div id="comment-id-#{resource.id}-#{comment.id}"
+              p.comment-body= comment.body
+              - if comment.persisted?
+                  - if comment.commentable_type == 'Answer'
+                    p
+                      = link_to 'Delete', comment, remote: true, method: :delete, data: {confirm: "You sure?"}
+                  - else
+                    - if comment.commentable_type == 'Question'
+                        p
+                          = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
 
-- if user_signed_in?
-    = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|
-        = f.text_area :body
-        br
-        = f.submit 'Place a comment'
+      - if user_signed_in?
+          = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|
+              = f.text_area :body
+              br
+              = f.submit 'Place a comment'

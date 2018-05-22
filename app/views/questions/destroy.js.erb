@@ -1,2 +1,2 @@
 $('#question-id-<%= @question.id %>').remove();
-$('.notice').html('<%= j flash.notice = 'Question was successfully destroyed.' %>');
+$('.notice').append('<div class="alert fade in alert-success"><button type="button" class="close" data-dismiss="alert">×</button><%= j = flash.notice = 'Question was successfully destroyed.' %></p>');

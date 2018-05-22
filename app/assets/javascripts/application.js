@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require action_cable
 //= require jquery.remotipart
 //= require cocoon

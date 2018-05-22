@@ -14,7 +14,7 @@ feature 'vote for question', %q{
     sign_in(user)
     visit question_path(question)
 
-    expect(page).to_not have_link '+'
+    expect(page).to_not have_css ("a i.fa.fa-angle-up")
   end
 
   describe 'Authenticated user' do
@@ -24,24 +24,24 @@ feature 'vote for question', %q{
     end
 
     scenario 'Authenticated user sees button vote for not own question ', js: true do
-      expect(page).to have_link '+'
+      expect(page).to have_css ("a i.fa.fa-angle-up")
     end
 
     scenario 'Authenticated user try vote for not own question ', js: true do
-      click_on '+'
+      find("a i.fa.fa-angle-up").click
       expect(page).to have_content "1"
     end
 
     scenario 'Authenticated user try negative vote for not own question ', js: true do
-      click_on '-'
+      find("a i.fa.fa-angle-down").click
       expect(page).to have_content "-1"
     end
 
     scenario 'Authenticated user cancel vote for not own question ', js: true do
-      click_on '+'
+      find("a i.fa.fa-angle-up").click
       expect(page).to have_content "1"
-
-      click_on '-'
+      sleep 5
+      find("a i.fa.fa-angle-down").click
       expect(page).to have_content "0"
     end
   end
@@ -49,7 +49,7 @@ feature 'vote for question', %q{
   scenario 'NonAuthenticated user try vote for question' do
     visit question_path(question)
 
-    expect(page).to_not have_link '+'
+    expect(page).to_not have_css ("a i.fa.fa-angle-up")
   end
 
 end
