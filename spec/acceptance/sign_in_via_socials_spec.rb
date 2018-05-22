@@ -24,7 +24,6 @@ feature 'Sign in with social networks accounts', %q{
 
       visit new_user_session_path
       click_on 'Sign in with Vkontakte'
-
       expect(page).to have_content('Successfully authenticated from Vkontakte account.')
     end
   end
