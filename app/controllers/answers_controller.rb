@@ -57,7 +57,7 @@ class AnswersController < ApplicationController
                                  created: created,
                                  question_user: @answer.question.user.id,
                                  attachments: @answer.attachments.map do |attach|
-                                    { id: attach.id, filename: attach.file.filename, url: attach.file.url }
+                                   { id: attach.id, filename: attach.file.filename, url: attach.file.url }
                                  end)
 
 
