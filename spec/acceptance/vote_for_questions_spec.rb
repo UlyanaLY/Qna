@@ -34,6 +34,7 @@ feature 'vote for question', %q{
 
     scenario 'Authenticated user try negative vote for not own question ', js: true do
       find("a i.fa.fa-angle-down").click
+      sleep 5
       expect(page).to have_content "-1"
     end
 
