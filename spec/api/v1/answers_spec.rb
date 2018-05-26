@@ -98,6 +98,8 @@ describe 'Answers API' do
 
     context 'authorized' do
       let!(:answer_params) { attributes_for(:answer) }
+      let!(:user) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: user.id) }
 
       subject { post "/api/v1/questions/#{question.id}/answers", params: { answer: answer_params, format: :json, access_token: access_token.token }}
 
@@ -114,13 +116,20 @@ describe 'Answers API' do
       context 'attributes' do
         it 'is included in a answer object' do
           subject
-          expect(response.body).to have_json_size(8).at_path("answer")
+          expect(response.body).to have_json_size(9).at_path("answer")
         end
 
-        %w[id body created_at updated_at user_id].each do |attr|
+        %w[body].each do |attr|
           it "answer object contains #{attr}" do
             subject
             expect(response.body).to be_json_eql(answer_params[attr.to_sym].to_json).at_path("answer/#{attr}")
+          end
+        end
+
+        %w[user_id].each do |attr|
+          it "answer object contains #{attr}" do
+            subject
+            expect(response.body).to be_json_eql(answer[attr.to_sym].to_json).at_path("answer/#{attr}")
           end
         end
       end
