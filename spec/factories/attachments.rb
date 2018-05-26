@@ -5,7 +5,6 @@ FactoryBot.define do
     file File.open(File.join(Rails.root, 'public/robots.txt'))
 
     factory :attachment_api do
-      # file "MyString"
       file { File.new("#{Rails.root}/spec/spec_helper.rb") }
       attachable nil
     end
