@@ -3,5 +3,10 @@
 FactoryBot.define do
   factory :attachment do
     file File.open(File.join(Rails.root, 'public/robots.txt'))
+
+    factory :attachment_api do
+      file { File.new("#{Rails.root}/spec/spec_helper.rb") }
+      attachable nil
+    end
   end
 end

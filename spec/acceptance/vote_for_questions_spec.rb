@@ -34,6 +34,7 @@ feature 'vote for question', %q{
 
     scenario 'Authenticated user try negative vote for not own question ', js: true do
       find("a i.fa.fa-angle-down").click
+      sleep 5
       expect(page).to have_content "-1"
     end
 
@@ -48,7 +49,6 @@ feature 'vote for question', %q{
 
   scenario 'NonAuthenticated user try vote for question' do
     visit question_path(question)
-
     expect(page).to_not have_css ("a i.fa.fa-angle-up")
   end
 

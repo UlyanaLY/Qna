@@ -58,7 +58,6 @@ feature 'Create answer', %q{
         end
       end
 
-
       Capybara.using_session('guest') do
         expect(page).to have_content 'Text from answer'
       end

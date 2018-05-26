@@ -7,7 +7,7 @@ $ ->
 
   $(document).on 'ajax:success', 'form.new_answer', (e, data, status, xhr) ->
     answer = $.parseJSON(xhr.responseText)
-    $('.answers').append('<p>'+answer.body+'</p>')
+    $('.answers').append('<p>'+answer.answer.body+'</p>')
     $('.answer_error').remove()
 
   $(document).on 'ajax:error', 'form.new_answer', (e, xhr, status, error) ->

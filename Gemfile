@@ -44,6 +44,9 @@ gem 'doorkeeper', '4.2.6'
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails'
 gem 'font-awesome-rails'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

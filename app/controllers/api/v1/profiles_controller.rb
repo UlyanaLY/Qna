@@ -1,8 +1,4 @@
-class Api::V1::ProfilesController < ApplicationController
-  respond_to :json
-
-  before_action :doorkeeper_authorize!
-
+class Api::V1::ProfilesController < Api::V1::BaseController
   authorize_resource class: User
 
   def me
