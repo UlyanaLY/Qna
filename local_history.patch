@@ -1,0 +1,15 @@
+Index: app/serializers/answer_serializer.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/serializers/answer_serializer.rb	(date 1527312378000)
++++ app/serializers/answer_serializer.rb	(date 1527312378000)
+@@ -3,4 +3,6 @@
+ 
+   has_many :comments
+   has_many :attachments
++  belongs_to :question
++  belongs_to :user
+ end
+\ No newline at end of file

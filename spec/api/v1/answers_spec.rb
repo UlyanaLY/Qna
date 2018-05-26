@@ -97,9 +97,33 @@ describe 'Answers API' do
     end
 
     context 'authorized' do
-      before { post "/api/v1/questions/#{question.id}/answers", params: { action: :create, format: :json, access_token: access_token.token, answer: attributes_for(:answer) } }
+      let!(:answer_params) { attributes_for(:answer) }
 
-      it { expect(response).to be_success }
+      subject { post "/api/v1/questions/#{question.id}/answers", params: { answer: answer_params, format: :json, access_token: access_token.token }}
+
+      it 'status 200' do
+         subject
+         expect(response).to be_success
+      end
+
+      it 'adds new answer to the database' do
+        subject
+        expect { post "/api/v1/questions/#{question.id}/answers",  params: { answer: answer_params, format: :json, access_token: access_token.token } }.to change { Answer.count }.by(1)
+      end
+
+      context 'attributes' do
+        it 'is included in a answer object' do
+          subject
+          expect(response.body).to have_json_size(8).at_path("answer")
+        end
+
+        %w[id body created_at updated_at user_id].each do |attr|
+          it "answer object contains #{attr}" do
+            subject
+            expect(response.body).to be_json_eql(answer_params[attr.to_sym].to_json).at_path("answer/#{attr}")
+          end
+        end
+      end
     end
   end
 end
