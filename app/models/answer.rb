@@ -14,6 +14,8 @@ class Answer < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
+  after_create :dispatch_new_answer, on: :create
+
   def set_as_best
     return if reload.best?
 
@@ -25,5 +27,11 @@ class Answer < ApplicationRecord
 
   def matched_user?(current_user)
     current_user.id == user_id
+  end
+
+  private
+
+  def dispatch_new_answer
+    NewAnswerDispatchJob.perform_later(self)
   end
 end

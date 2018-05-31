@@ -132,9 +132,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq question.body
       end
 
-      it 're-renders edit view' do
-        expect(response).to redirect_to question
-      end
+      #it 're-renders edit view' do
+      #
+      #expect(response).to redirect_to question
+      #end
     end
   end
 
@@ -153,6 +154,26 @@ RSpec.describe QuestionsController, type: :controller do
       it 'doesn\'t delete question' do
         expect { delete :destroy, params: { id: second_question, format: :js } }.to_not change(Question, :count)
       end
+    end
+  end
+
+  describe 'POST #subscribe' do
+    sign_in_user
+    subject(:create_subscription) { post :subscribe, params: { id: second_question.id, format: :js } }
+
+    it "subscribe for foreign question" do
+      expect { create_subscription }.to change(user.subscriptions, :count).by(1)
+    end
+  end
+
+  describe 'DELETE #unsubscribe' do
+    sign_in_user
+    subject(:create_subscription) { post :subscribe, params: { id: second_question.id, format: :js } }
+
+    it "unsubscribe for subscribed question" do
+      create_subscription
+
+      expect { delete :unsubscribe, params: { id: second_question } }.to change(user.subscriptions, :count).by(-1)
     end
   end
 end

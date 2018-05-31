@@ -50,4 +50,8 @@ RSpec.describe Answer, type: :model do
       expect(question.matched_user?(second_user)).to be_falsey
     end
   end
+
+  def dispatch_new_answer
+    NewAnswerDispatchJob.perform_later(self)
+  end
 end

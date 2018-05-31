@@ -35,6 +35,13 @@ class Ability
     can :accept_answer, Answer do |answer|
       user.author_of?(answer.question) && !answer.best?
     end
+    can :subscribe, Question do |question|
+      !question.subscribed?(user)
+    end
+
+    can :unsubscribe, Question do |question|
+      question.subscribed?(user)
+    end
 
     can :me, User, user_id: user.id
   end

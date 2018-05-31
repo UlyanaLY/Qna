@@ -47,6 +47,11 @@ gem 'font-awesome-rails'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+#gem 'delayed_job_active_record'
+gem 'sidekiq'
+gem 'whenever'
+gem 'sinatra', '>= 1.3.0', require: nil
+gem 'letter_opener'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

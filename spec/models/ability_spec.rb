@@ -48,6 +48,8 @@ RSpec.describe Ability, type: :model do
 
       it { should_not be_able_to :voteup, question, user: user }
       it { should_not be_able_to :votedown, question, user: user }
+
+      it { should be_able_to :subscribe, Question }
     end
 
     context 'Answer' do

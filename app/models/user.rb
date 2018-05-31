@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:vkontakte]
 
   has_many :authorizations
-
+  has_many :subscriptions, dependent: :destroy
   has_many :questions
   has_many :answers
   has_many :votes
@@ -30,6 +30,12 @@ class User < ApplicationRecord
       user.create_authorization(auth)
     end
     user
+  end
+
+  def self.send_daily_digest
+    find_each.each do |user|
+        DigestMailer.digest(user).deliver
+    end
   end
 
   def create_authorization(auth)

@@ -1,0 +1,5 @@
+.subscription
+  - if can?(:subscribe, @question)
+    p= button_to 'Subscribe', subscribe_question_path(@question), remote: true
+  - if can?(:unsubscribe, @question)
+    p= button_to 'Unsubscribe', unsubscribe_question_path(@question), method: :delete, remote: true
