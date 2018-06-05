@@ -1,10 +1,11 @@
 class NewAnswerDispatchJob < ApplicationJob
-  queue_as :default
+  queue_as :mailers
 
-  def perform(answer)
-    subscribers = answer.question.subscribers
-    subscribers.each do |recipient|
-      AnswerMailer.notifier(answer, recipient).try(:deliver_later) unless answer.user == recipient
+    def perform(answer)
+      answer.question.subscriptions.includes(:user).each do |subscription|
+        if answer.user != subscription.user
+          AnswerMailer.notifier(answer, subscription.user).try(:deliver_later) unless subscription.user.author_of?(answer)
+        end
+      end
     end
-  end
 end

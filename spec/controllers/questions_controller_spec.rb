@@ -156,24 +156,4 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
-
-  describe 'POST #subscribe' do
-    sign_in_user
-    subject(:create_subscription) { post :subscribe, params: { id: second_question.id, format: :js } }
-
-    it "subscribe for foreign question" do
-      expect { create_subscription }.to change(user.subscriptions, :count).by(1)
-    end
-  end
-
-  describe 'DELETE #unsubscribe' do
-    sign_in_user
-    subject(:create_subscription) { post :subscribe, params: { id: second_question.id, format: :js } }
-
-    it "unsubscribe for subscribed question" do
-      create_subscription
-
-      expect { delete :unsubscribe, params: { id: second_question } }.to change(user.subscriptions, :count).by(-1)
-    end
-  end
 end

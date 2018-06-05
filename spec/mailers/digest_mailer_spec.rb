@@ -1,18 +1,15 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe DigestMailer, type: :mailer do
-  describe "digest" do
-    let(:user) { create(:user) }
-    let(:questions) { create_list(:question, 5, user: user) }
-    let(:mail) { DigestMailer.digest(user, questions) }
+RSpec.describe DigestDispatchJob, type: :job do
+  let!(:users) { create_list(:user, 5) }
+  let!(:questions) { create_list(:question, 5, user: users.first) }
 
-    it "renders the headers" do
-      expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["from@example.com"])
+  it 'sends digest to all users' do
+
+    users.each do |user|
+      expect(DigestMailer).to receive(:digest).with(user).and_call_original
     end
 
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Questions of the last day")
-    end
+    DigestDispatchJob.perform_now
   end
 end

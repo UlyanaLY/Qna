@@ -4,7 +4,6 @@ class QuestionsController < ApplicationController
   include Voted
 
   respond_to :html, :json, :js
-  #respond_to :js, only: %i[subscribe unsubscribe]
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :load_question, only: %i[show edit update destroy subscribe unsubscribe]
@@ -41,14 +40,6 @@ class QuestionsController < ApplicationController
   def destroy
     respond_with(@question.destroy) if current_user.author_of?(@question)
     flash.discard
-  end
-
-  def subscribe
-    respond_with(@question.add_subscribe(current_user), template: 'common/subscribe')
-  end
-
-  def unsubscribe
-    respond_with(@question.del_subscribe(current_user), template: 'common/subscribe')
   end
 
   private

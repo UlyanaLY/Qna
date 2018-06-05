@@ -16,6 +16,10 @@ class User < ApplicationRecord
     id == resource.user_id
   end
 
+  def subscribed?(question)
+    question.subscriptions.where(user_id: self.id).exists?
+  end
+
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
@@ -32,10 +36,12 @@ class User < ApplicationRecord
     user
   end
 
-  def self.send_daily_digest
-    find_each.each do |user|
-        DigestMailer.digest(user).deliver
-    end
+  def subscribe(question)
+    @subscription = question.subscriptions.create!(user_id: self.id)
+ end
+
+  def unsubscribe(question)
+    question.subscriptions.where(user_id: self.id).destroy_all
   end
 
   def create_authorization(auth)
