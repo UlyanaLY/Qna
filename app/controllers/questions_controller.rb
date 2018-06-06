@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 class QuestionsController < ApplicationController
   include Voted
 
   respond_to :html, :json, :js
 
   before_action :authenticate_user!, except: %i[index show]
-  before_action :load_question, only: %i[show edit update destroy subscribe unsubscribe]
+  before_action :load_question, only: %i[show edit update destroy]
   before_action :build_answer, only: %i[show]
 
   after_action :publish_question, only: %i[create]

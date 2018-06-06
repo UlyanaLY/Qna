@@ -38,7 +38,7 @@ RSpec.describe Answer, type: :model do
     let!(:user) { create(:user) }
     let!(:second_user) { create(:user) }
     let(:question) { create(:question, user: user) }
-    let(:answer) { create(:answer, user: user, question: question) }
+    let!(:answer) { create(:answer, user: user, question: question) }
 
     it 'matched' do
       expect(answer.matched_user?(user)).to be true
@@ -51,7 +51,15 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  def dispatch_new_answer
-    NewAnswerDispatchJob.perform_later(self)
+  describe 'dispatch_new_answer' do
+    let!(:user) { create(:user) }
+    let!(:question) { create(:question, user: user) }
+    let!(:subscribed_user) { create(:user) }
+    let!(:answer) { create(:answer, user: user, question: question) }
+    let!(:subscription){ create(:subscription, user: subscribed_user, question: question) }
+
+    it 'dispatch_new_answer' do
+      NewAnswerDispatchJob.perform_later(answer)
+    end
   end
 end

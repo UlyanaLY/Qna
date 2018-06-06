@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Answer < ApplicationRecord
   include Votable
   include Commentable
@@ -29,7 +27,7 @@ class Answer < ApplicationRecord
     current_user.id == user_id
   end
 
-  private
+  protected
 
   def dispatch_new_answer
     NewAnswerDispatchJob.perform_later(self)

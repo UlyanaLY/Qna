@@ -3,9 +3,7 @@ class NewAnswerDispatchJob < ApplicationJob
 
     def perform(answer)
       answer.question.subscriptions.includes(:user).each do |subscription|
-        if answer.user != subscription.user
-          AnswerMailer.notifier(answer, subscription.user).try(:deliver_later) unless subscription.user.author_of?(answer)
-        end
+        AnswerMailer.notifier(answer, subscription.user).try(:deliver_later) unless subscription.user.author_of?(answer)
       end
     end
 end
