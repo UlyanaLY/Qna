@@ -53,13 +53,12 @@ RSpec.describe Answer, type: :model do
 
   describe 'dispatch_new_answer' do
     let!(:user) { create(:user) }
-    let!(:question) { create(:question, user: user) }
-    let!(:subscribed_user) { create(:user) }
-    let!(:answer) { create(:answer, user: user, question: question) }
-    let!(:subscription){ create(:subscription, user: subscribed_user, question: question) }
+    let(:question) { create(:question, user: user) }
+    subject { build(:answer, user: user, question: question) }
 
     it 'dispatch_new_answer' do
-      NewAnswerDispatchJob.perform_later(answer)
+      expect(NewAnswerDispatchJob).to receive(:perform_later).with(subject)
+      subject.save!
     end
   end
 end
