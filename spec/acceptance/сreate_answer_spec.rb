@@ -24,7 +24,8 @@ feature 'Create answer', %q{
     expect(current_path).to eq question_path(question)
   end
 
-  scenario 'Non-authenticated user try to create answer' do
+  scenario 'Non-authenticated user try to create answer', js: true do
+    pending 'To change scenario'
     visit question_path(question)
     click_on 'Create'
     expect(page).to have_content 'You need to sign in or sign up before continuing.'

@@ -1,0 +1,116 @@
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m*[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) Create answer 
+    In order to answer on a question
+    As an authenticated user
+    I want to be able to create an answer on questions
+ Non-authenticated user try to create answer
+     [36m# To change scenario[0m
+     [33mFailure/Error: click_on 'Create'[0m
+     [33m[0m
+     [33mCapybara::ElementNotFound:[0m
+     [33m  Unable to find visible link or button "Create"[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:314:in `block in synced_resolve'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/base.rb:85:in `synchronize'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:302:in `synced_resolve'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:37:in `find'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/actions.rb:25:in `click_link_or_button'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/session.rb:808:in `block (2 levels) in <class:Session>'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/dsl.rb:50:in `block (2 levels) in <module:DSL>'[0m
+     [36m# ./spec/acceptance/сreate_answer_spec.rb:30:in `block (2 levels) in <top (required)>'[0m
+
+Failures:
+
+  1) Subscriptions 
+  In order to view information of new answer in question
+  As an autenfication user
+  I want to subscribe to answers of question
+ Non-author of question user Author dont see subscribe link in his question
+     [31mFailure/Error: expect(page).to have_button "Unsubscribe"[0m
+     [31m  expected to find visible button "Unsubscribe" but there were no matches[0m
+     [36m# ./spec/acceptance/subscribe_spec.rb:26:in `block (3 levels) in <top (required)>'[0m
+
+  2) Subscriptions 
+  In order to view information of new answer in question
+  As an autenfication user
+  I want to subscribe to answers of question
+ Non-author of question user Author can unsubscribe from his question
+     [31mFailure/Error: click_on 'Unsubscribe'[0m
+     [31m[0m
+     [31mCapybara::ElementNotFound:[0m
+     [31m  Unable to find visible link or button "Unsubscribe"[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:314:in `block in synced_resolve'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/base.rb:85:in `synchronize'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:302:in `synced_resolve'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/finders.rb:37:in `find'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/node/actions.rb:25:in `click_link_or_button'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/session.rb:808:in `block (2 levels) in <class:Session>'[0m
+     [36m# /home/ulyanaly/.rvm/gems/ruby-2.4.1/gems/capybara-2.17.0/lib/capybara/dsl.rb:50:in `block (2 levels) in <module:DSL>'[0m
+     [36m# ./spec/acceptance/subscribe_spec.rb:30:in `block (3 levels) in <top (required)>'[0m
+
+  3) Answers API GET /index authorized answer object contains id
+     [31mFailure/Error: expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answers/0/#{attr}")[0m
+     [31m[0m
+     [31m  Expected equivalent JSON at path "answers/0/id"[0m
+     [31m  Diff:[0m[0m
+     [31m  [0m[34m@@ -1,2 +1,2 @@[0m
+     [31m  [0m[31m-33[0m
+     [31m  [0m[32m+34[0m
+     [31m  [0m[0m
+     [36m# ./spec/api/v1/answers_spec.rb:61:in `block (5 levels) in <top (required)>'[0m
+
+  4) Answers API GET /index authorized answer object contains body
+     [31mFailure/Error: expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answers/0/#{attr}")[0m
+     [31m[0m
+     [31m  Expected equivalent JSON at path "answers/0/body"[0m
+     [31m  Diff:[0m[0m
+     [31m  [0m[34m@@ -1,2 +1,2 @@[0m
+     [31m  [0m[31m-"Body 70"[0m
+     [31m  [0m[32m+"Body 71"[0m
+     [31m  [0m[0m
+     [36m# ./spec/api/v1/answers_spec.rb:61:in `block (5 levels) in <top (required)>'[0m
+
+  5) Answers API GET /index authorized answer object contains created_at
+     [31mFailure/Error: expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answers/0/#{attr}")[0m
+     [31m[0m
+     [31m  Expected equivalent JSON at path "answers/0/created_at"[0m
+     [31m  Diff:[0m[0m
+     [31m  [0m[34m@@ -1,2 +1,2 @@[0m
+     [31m  [0m[31m-"2018-06-12T13:07:00.567Z"[0m
+     [31m  [0m[32m+"2018-06-12T13:07:00.581Z"[0m
+     [31m  [0m[0m
+     [36m# ./spec/api/v1/answers_spec.rb:61:in `block (5 levels) in <top (required)>'[0m
+
+  6) Answers API GET /index authorized answer object contains updated_at
+     [31mFailure/Error: expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answers/0/#{attr}")[0m
+     [31m[0m
+     [31m  Expected equivalent JSON at path "answers/0/updated_at"[0m
+     [31m  Diff:[0m[0m
+     [31m  [0m[34m@@ -1,2 +1,2 @@[0m
+     [31m  [0m[31m-"2018-06-12T13:07:01.613Z"[0m
+     [31m  [0m[32m+"2018-06-12T13:07:01.657Z"[0m
+     [31m  [0m[0m
+     [36m# ./spec/api/v1/answers_spec.rb:61:in `block (5 levels) in <top (required)>'[0m
+
+Finished in 5 minutes 18 seconds (files took 9.65 seconds to load)
+[31m313 examples, 6 failures, 1 pending[0m
+
+Failed examples:
+
+[31mrspec ./spec/acceptance/subscribe_spec.rb:24[0m [36m# Subscriptions 
+  In order to view information of new answer in question
+  As an autenfication user
+  I want to subscribe to answers of question
+ Non-author of question user Author dont see subscribe link in his question[0m
+[31mrspec ./spec/acceptance/subscribe_spec.rb:29[0m [36m# Subscriptions 
+  In order to view information of new answer in question
+  As an autenfication user
+  I want to subscribe to answers of question
+ Non-author of question user Author can unsubscribe from his question[0m
+[31mrspec ./spec/api/v1/answers_spec.rb[1:2:2:3][0m [36m# Answers API GET /index authorized answer object contains id[0m
+[31mrspec ./spec/api/v1/answers_spec.rb[1:2:2:4][0m [36m# Answers API GET /index authorized answer object contains body[0m
+[31mrspec ./spec/api/v1/answers_spec.rb[1:2:2:5][0m [36m# Answers API GET /index authorized answer object contains created_at[0m
+[31mrspec ./spec/api/v1/answers_spec.rb[1:2:2:6][0m [36m# Answers API GET /index authorized answer object contains updated_at[0m
+

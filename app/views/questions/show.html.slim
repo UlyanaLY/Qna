@@ -3,19 +3,19 @@
 .answers
   h3 Answers
   = render @question.answers.sort_by_best
+-if user_signed_in?
+  = form_for [@question, @answer], remote: true do |f|
+     .form_gr
+      .field
+        = f.label :body, 'Your answer'
+      .answer-errors
+        = f.text_area :body
+      .attachments
+        = f.fields_for :attachments, @answer.attachments.new do |a|
+          = render 'answers/attachment_fields', f: a
+        .links
+          =link_to_add_association 'add attachment', f, :attachments
+      p = f.submit 'Create'
 
-= form_for [@question, @answer], remote: true, data: { type: :json }  do |f|
-   .form_gr
-    .field
-      = f.label :body, 'Your answer'
-    .answer-errors
-      = f.text_area :body
-    .attachments
-      = f.fields_for :attachments, @answer.attachments.new do |a|
-        = render 'answers/attachment_fields', f: a
-      .links
-        =link_to_add_association 'add attachment', f, :attachments
-    p = f.submit 'Create'
-
-      .back
-        =link_to 'Назад', questions_path
+        .back
+          =link_to 'Назад', questions_path
