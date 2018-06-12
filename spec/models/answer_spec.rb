@@ -38,7 +38,7 @@ RSpec.describe Answer, type: :model do
     let!(:user) { create(:user) }
     let!(:second_user) { create(:user) }
     let(:question) { create(:question, user: user) }
-    let(:answer) { create(:answer, user: user, question: question) }
+    let!(:answer) { create(:answer, user: user, question: question) }
 
     it 'matched' do
       expect(answer.matched_user?(user)).to be true
@@ -48,6 +48,17 @@ RSpec.describe Answer, type: :model do
     it 'not matched' do
       expect(answer.matched_user?(second_user)).to be_falsey
       expect(question.matched_user?(second_user)).to be_falsey
+    end
+  end
+
+  describe 'dispatch_new_answer' do
+    let!(:user) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    subject { build(:answer, user: user, question: question) }
+
+    it 'dispatch_new_answer' do
+      expect(NewAnswerDispatchJob).to receive(:perform_later).with(subject)
+      subject.save!
     end
   end
 end

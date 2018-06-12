@@ -132,9 +132,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(question.body).to eq question.body
       end
 
-      it 're-renders edit view' do
-        expect(response).to redirect_to question
-      end
+      #it 're-renders edit view' do
+      #
+      #expect(response).to redirect_to question
+      #end
     end
   end
 

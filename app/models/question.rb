@@ -1,10 +1,9 @@
-# frozen_string_literal: true
-
 class Question < ApplicationRecord
   include Votable
   include Commentable
 
   has_many :answers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   has_many :attachments, as: :attachable
   belongs_to :user
 

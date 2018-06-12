@@ -7,13 +7,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:vkontakte]
 
   has_many :authorizations
-
+  has_many :subscriptions, dependent: :destroy
   has_many :questions
   has_many :answers
   has_many :votes
 
   def author_of?(resource)
     id == resource.user_id
+  end
+
+  def subscribed?(question)
+    question.subscriptions.where(user_id: self.id).exists?
   end
 
   def self.find_for_oauth(auth)
@@ -30,6 +34,14 @@ class User < ApplicationRecord
       user.create_authorization(auth)
     end
     user
+  end
+
+  def subscribe(question)
+    @subscription = question.subscriptions.create!(user_id: self.id)
+ end
+
+  def unsubscribe(question)
+    question.subscriptions.where(user_id: self.id).destroy_all
   end
 
   def create_authorization(auth)

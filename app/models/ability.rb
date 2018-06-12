@@ -36,6 +36,12 @@ class Ability
       user.author_of?(answer.question) && !answer.best?
     end
 
+    can :create, Subscription
+
+    can :destroy, Subscription do |subscription|
+      @user.author_of? subscription
+    end
+
     can :me, User, user_id: user.id
   end
 end

@@ -49,7 +49,7 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'valid user' do
       it 'deletes answer' do
-        expect { delete :destroy, params: { question_id: question, id: answer }, format: :js }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params:{ question_id: question, id: answer }, format: :js }.to change(Answer, :count).by(-1)
       end
 
       context 'invalid user' do

@@ -35,6 +35,7 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :create, Answer }
     it { should be_able_to :create, Comment }
     it { should be_able_to :create, Attachment }
+    it { should be_able_to :create, Subscription }
 
     context 'Question' do
 
@@ -48,6 +49,7 @@ RSpec.describe Ability, type: :model do
 
       it { should_not be_able_to :voteup, question, user: user }
       it { should_not be_able_to :votedown, question, user: user }
+
     end
 
     context 'Answer' do
