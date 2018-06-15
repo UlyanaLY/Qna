@@ -33,12 +33,18 @@ html lang="en"
                       = link_to 'Logout', destroy_user_session_path, method: :delete
                   - else
                       = link_to 'Login', new_user_session_path
+                li.search
+                    = form_tag search_path, method: :get do
+                      = select_tag :category, options_for_select(Search::CATEGORIES, params[:category]), prompt: 'Everywhere'
+                      = text_field_tag :query, params[:query], required: true
+                      = submit_tag 'Search'
 
       .container
         .main
           .row
             .span9
               p.notice = bootstrap_flash
+
               = yield
       .empty
     footer.footer

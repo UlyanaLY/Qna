@@ -5,6 +5,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: 'Vkontakte') if is_navigational_format?
-    end
+   end
   end
 end

@@ -2,7 +2,7 @@ require_relative 'acceptance_helper'
 
 feature 'Subscriptions', %q{
   In order to view information of new answer in question
-  As an autenfication user
+  As an authenticated user
   I want to subscribe to answers of question
 } do
   given(:author) { create(:user) }

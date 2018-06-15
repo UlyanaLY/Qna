@@ -1,23 +1,23 @@
-div class="question questions" id="question-id-#{@question.id}" data-id="#{@question.id}"
+div class="question questions" id="question-id-#{question.id}" data-id="#{question.id}"
   div class="question-container"
     h3
-      = @question.title
+      = question.title
     div
-      = @question.body
+      = question.body
     h3 Attachments
     ul
-      - @question.attachments.each do |attachment|
+      - question.attachments.each do |attachment|
         div id="question_attachment-id-#{attachment.id}"
           p= link_to attachment.file.identifier, attachment.file.url
-        - if can?(:destroy, @question)
+        - if can?(:destroy, question)
           p= link_to 'Удалить', attachment, remote: true, method: :delete, data: { attachmnet_id: attachment.id }
 
-      - if can?(:voteup, @question)
+      - if can?(:voteup, question)
         div  class="rating"
-          span = link_to voteup_question_path(@question), method: :post, data: {type: :json, question_id: @question.id}, remote: true
+          span = link_to voteup_question_path(question), method: :post, data: {type: :json, question_id: question.id}, remote: true
             i.fa.fa-angle-up.fa-2x
-          p id="question_rate-id-#{question.id}" = @question.rate
-          span = link_to  votedown_question_path(@question), method: :post, data: {type: :json, question_id: @question.id}, remote: true
+          p id="question_rate-id-#{question.id}" = question.rate
+          span = link_to  votedown_question_path(question), method: :post, data: {type: :json, question_id: question.id}, remote: true
             i.fa.fa-angle-down.fa-2x
-    = render 'common/comments', resource: @question
-    = render 'common/subscription', resource: @question
+    = render 'common/comments', resource: question
+    = render 'common/subscription', resource: question

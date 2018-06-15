@@ -46,6 +46,6 @@ Rails.application.routes.draw do
   resources :attachments
 
   root to: 'questions#index'
-
+  get '/search' => 'search#search'
   mount ActionCable.server => '/cable'
 end

@@ -4,7 +4,7 @@ describe 'Answers API' do
   let(:user) { @user || create(:user) }
   let(:access_token) { create(:access_token) }
   let!(:question) { create(:question, user: user) }
-  let!(:answer) { create(:answer, question: question, user: user)}
+
   let!(:answers) { create_list(:answer, 2, question: question, user: user) }
   let(:answer) { answers.first }
   let!(:comment) { create(:comment, commentable: answer, user: user) }

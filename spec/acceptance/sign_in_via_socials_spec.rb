@@ -9,7 +9,7 @@ feature 'Sign in with social networks accounts', %q{
   given(:user) { create(:user) }
 
   describe 'Sign in via Vkontakte' do
-    scenario 'User is not registered yet', js: true do
+    scenario 'User is not registered yet' do
       mock_auth_hash(:vkontakte, 'test@exemple.ru')
       visit new_user_session_path
       click_on 'Sign in with Vkontakte'
@@ -17,13 +17,13 @@ feature 'Sign in with social networks accounts', %q{
       expect(page).to have_content('Successfully authenticated from Vkontakte account.')
     end
 
-    scenario 'User is registered already', js: true do
-     create(:user)
+    scenario 'User is registered already' do
      auth = mock_auth_hash(:vkontakte, user.email)
      create(:authorization, user: user, provider: auth.provider, uid: auth.uid)
 
      visit new_user_session_path
      click_on 'Sign in with Vkontakte'
+
      expect(page).to have_content('Successfully authenticated from Vkontakte account.')
     end
   end
