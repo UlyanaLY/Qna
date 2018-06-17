@@ -13,13 +13,13 @@
 #
 # Configure Using Gemfile
 # gem 'pg'
-#
+
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
+  # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
 
 development:
   <<: *default
@@ -82,4 +82,4 @@ production:
   <<: *default
   database: qna_production
   username: qna
-  password: <%= ENV['QNA_DATABASE_PASSWORD'] %>
+password: <%= ENV['QNA_DATABASE_PASSWORD'] %>
