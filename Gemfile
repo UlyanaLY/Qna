@@ -44,6 +44,7 @@ gem 'cocoon'
 gem 'remotipart'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'dotenv'
+gem 'dotenv-rails'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 
 group :development, :test do

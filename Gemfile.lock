@@ -111,6 +111,8 @@ GEM
     dotenv (1.0.2)
     dotenv-deployment (0.3.0)
       dotenv (~> 1.0)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     erubi (1.7.1)
     execjs (2.7.0)
     factory_bot (4.10.0)
@@ -388,6 +390,7 @@ DEPENDENCIES
   doorkeeper (= 4.2.6)
   dotenv
   dotenv-deployment
+  dotenv-rails
   factory_bot_rails
   font-awesome-rails
   gon
