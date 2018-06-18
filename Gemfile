@@ -43,9 +43,8 @@ gem 'carrierwave'
 gem 'cocoon'
 gem 'remotipart'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'dotenv'
 gem 'dotenv-rails'
-gem 'dotenv-deployment', require: 'dotenv/deployment'
+
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
