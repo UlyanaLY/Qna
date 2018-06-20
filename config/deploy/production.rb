@@ -18,6 +18,7 @@ role :web, %w{deployer@206.189.111.181}
 role :db,  %w{deployer@206.189.111.181}
 
 set :rails_env, :production
+set :stage, :production
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
