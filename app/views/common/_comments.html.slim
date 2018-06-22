@@ -8,14 +8,13 @@
           - resource.comments.each do |comment|
             div id="comment-id-#{resource.id}-#{comment.id}"
               p.comment-body= comment.body
-              - if comment.persisted?
+              - if comment.persisted? && user_signed_in?
                   - if comment.commentable_type == 'Answer'
-                    p
-                      = link_to 'Delete', comment, remote: true, method: :delete, data: {confirm: "You sure?"}
+                      = link_to 'Delete', comment, remote: true, method: :delete, data: { comment_id: comment.id }
                   - else
                     - if comment.commentable_type == 'Question'
                         p
-                          = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: {confirm: "You sure?"}
+                          = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: { comment_id: comment.id }
 
       - if user_signed_in?
           = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|

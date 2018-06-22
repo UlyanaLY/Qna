@@ -10,7 +10,7 @@ div class="question questions" id="question-id-#{question.id}" data-id="#{questi
         div id="question_attachment-id-#{attachment.id}"
           p= link_to attachment.file.identifier, attachment.file.url
         - if can?(:destroy, question)
-          p= link_to 'Удалить', attachment, remote: true, method: :delete, data: { attachmnet_id: attachment.id }
+          p= link_to 'Delete', attachment, remote: true, method: :delete, data: { attachmnet_id: attachment.id }
 
       - if can?(:voteup, question)
         div  class="rating"

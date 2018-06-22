@@ -12,30 +12,19 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.create(comment_params.merge(user_id: current_user.id))
     respond_with(@comment)
+    flash[:notice] = 'Comment was successfully created'
   end
 
   def destroy
     @commentable = @comment.commentable
-    respond_with(@comment.destroy) if current_user.author_of?(@comment)
+    if current_user.author_of?(@comment)
+      respond_with(@comment.destroy)
+    else
+      flash[:notice] = "You can't destroy this comment"
+    end
   end
 
   private
-
-  def destroy_comment
-    return if @comment.errors.any?
-    the_method = "destroyed"
-    data = {
-        comment: @comment,
-        commentable_id: @comment.commentable.id,
-        commentable_type: @comment.commentable_type.underscore,
-        the_method: the_method,
-        comment_id: @comment.id,
-        user_email: @comment.user.email
-    }
-    ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @comment.commentable.id : @comment.commentable.question_id}",
-                                  data
-    )
-  end
 
   def publish_comment
     return if @comment.errors.any?

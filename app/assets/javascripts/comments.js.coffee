@@ -11,11 +11,14 @@ $ ->
       if (current_user_id != data['user_id'] || !gon.is_user_signed_in)
         if data['commentable_type'] == 'question'
           questionContainer = $('div.question-container').find('div.comments')
-          console.log(questionContainer)
+          console.log(data.the_method)
           if data.the_method == 'created'
             questionContainer.append(JST["templates/comment"](data))
+            $('#comment_body').val('')
+            $('.notice').html('Comment was successfully created.')
           else
-            $('div.question-container > div.comments div:last-child').remove()
+            console.log('comments.js.coffee')
+            $('div.question-container  > div.comments div:first-child').remove()
 
         else if data['commentable_type'] == 'answer'
           answerId = data.commentable_id
