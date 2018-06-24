@@ -44,6 +44,7 @@ gem 'cocoon'
 gem 'remotipart'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'dotenv-rails'
+gem 'unicorn'
 
 
 group :development, :test do
@@ -66,6 +67,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-sidekiq', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :test do
