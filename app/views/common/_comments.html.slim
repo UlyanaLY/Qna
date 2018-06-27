@@ -6,8 +6,10 @@
           - if resource.comments.present?
 
           - resource.comments.each do |comment|
+            - cache do
             div id="comment-id-#{resource.id}-#{comment.id}"
               p.comment-body= comment.body
+            - cache ['comment_form', resource] do
               - if comment.persisted? && user_signed_in?
                   - if comment.commentable_type == 'Answer'
                       = link_to 'Delete', comment, remote: true, method: :delete, data: { comment_id: comment.id }
