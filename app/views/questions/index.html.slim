@@ -8,7 +8,6 @@ table.table.table-hover
        th.col-md-1 scope="col"
        th.col-md-1 scope="col"
    tbody
-     -cache collection_cache_key_for :question do
        - @questions.each do |question|
          tr id="question-id-#{question.id}"
           th scope="row"

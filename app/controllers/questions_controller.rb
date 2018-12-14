@@ -36,7 +36,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    respond_with(@question.destroy) if current_user.author_of?(@question)
+    respond_with(@question.destroy) if current_user.author_of?(@question)||current_user.admin?
     flash.discard
   end
 

@@ -4,6 +4,11 @@
   Static version of css will use Glyphicons sprites by default
   =require twitter-bootstrap-static/sprites
 */
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
 body {
     margin: 0;
     padding: 0;
@@ -79,4 +84,15 @@ li.search {
 
 .btn {
     margin: 30px 0;
+}
+/* forms */
+
+
+
+
+#error_explanation {
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
 }
