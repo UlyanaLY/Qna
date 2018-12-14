@@ -1,8 +1,5 @@
-alert.log('Hello!!!')
 <% if @commentable_type == 'Question'%>
-  alert.log('Hello!!!')
   $('#comment-id-<%= @commentable.id %>-<%= @comment.id %>').remove();
-    alert.log('Hello!!!')
 <% elsif  @commentable_type == 'Answer' %>
   $('div.answer-container-<%= @comment.commentable.id %> > div.comments div:last-child').remove();
 <% end %>

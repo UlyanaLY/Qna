@@ -1,10 +1,14 @@
-div
-    p.comment-body =@comment.body
-    p
-    - if @comment.commentable_type == 'Question'
+div id="comment-id-#{@commentable.id}-#{@comment.id}" class="panel panel-default"
+    div.panel-heading
         p
-            a href="/#{@comment.commentable_type.toLowerCase()}s/#{@commentable.id}/comments/#{@comment.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete
-    - else if @comment.commentable_type == 'Answer'
+          = @comment.created_at
+    div.panel-body
+        p.comment-body =@comment.body
         p
-            a href="/comments/#{@comment.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete
+        - if @comment.commentable_type == 'Question'
+            p
+                a href="/#{@comment.commentable_type.toLowerCase()}s/#{@commentable.id}/comments/#{@comment.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete
+        - else if @comment.commentable_type == 'Answer'
+            p
+                a href="/comments/#{@comment.id}" data-remote="true" data-method="delete" data-confirm="Are you sure?" rel="nofollow" Delete
 

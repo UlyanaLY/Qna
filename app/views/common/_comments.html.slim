@@ -1,22 +1,27 @@
 .container
   .row
     .col
-      h4 Comments
-      .comments data-id="#{resource.id}"
-          - if resource.comments.present?
+      - if user_signed_in?
+        h4 Comments
+        .comments data-id="#{resource.id}"
+            - if resource.comments.present?
 
-          - resource.comments.each do |comment|
-            - cache do
-            div id="comment-id-#{resource.id}-#{comment.id}"
-              p.comment-body= comment.body
-            - cache ['comment_form', resource] do
-              - if comment.persisted? && user_signed_in?
-                  - if comment.commentable_type == 'Answer'
-                      = link_to 'Delete', comment, remote: true, method: :delete, data: { comment_id: comment.id }
-                  - else
-                    - if comment.commentable_type == 'Question'
-                        p
-                          = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: { comment_id: comment.id }
+            - resource.comments.each do |comment|
+              -if comment.persisted?
+                div id="comment-id-#{resource.id}-#{comment.id}" class="panel panel-default"
+                  div.panel-heading
+                    p
+                      = comment.created_at
+                  div.panel-body
+                    p.comment-body
+                      = comment.body
+                    - if user_signed_in?&& can?(:destroy, comment)
+                        - if comment.commentable_type == 'Answer'
+                            = link_to 'Delete', comment, remote: true, method: :delete, data: { comment_id: comment.id }
+                        - else
+                          - if comment.commentable_type == 'Question'
+                              p
+                                = link_to 'Delete', [resource, comment], remote: true, method: :delete, data: { comment_id: comment.id }
 
       - if user_signed_in?
           = form_for [resource, resource.comments.build], remote: true, data: { type: :json } do |f|

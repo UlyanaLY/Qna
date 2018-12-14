@@ -6,7 +6,7 @@ $ ->
       this.perform('follow', {id: questionId})
     ,
     received: (data) ->
-      console.log(data['commentable_type'] )
+      console.log(data)
       current_user_id = gon.current_user_id
       if (current_user_id != data['user_id'] || !gon.is_user_signed_in)
         if data['commentable_type'] == 'question'
@@ -16,9 +16,15 @@ $ ->
             questionContainer.append(JST["templates/comment"](data))
             $('#comment_body').val('')
             $('.notice').html('Comment was successfully created.')
+
+            console.log(data.the_method)
           else
-            console.log('comments.js.coffee')
-            $('div.question-container  > div.comments div:first-child').remove()
+            console.log(data.the_method)
+            commentId = data.comment_id
+            commentableId = data.commentable_id
+            $( "#comment-id-#{commentableId}-#{commentId}").remove()
+            $('.notice').html('Comment was successfully deleted.')
+          $(".notice").addClass( "alert fade in alert-success ")
 
         else if data['commentable_type'] == 'answer'
           answerId = data.commentable_id

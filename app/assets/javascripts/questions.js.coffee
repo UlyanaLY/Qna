@@ -2,8 +2,9 @@ $ ->
 
   $('.rating a').click (e) ->
     e.preventDefault();
+    console.log('point')
     $(this).bind 'ajax:success', (e, data, status, xhr) ->
-
+      console.log('point')
       point = $.parseJSON(xhr.responseText);
       question_id = $(this).data('questionId')
       console.log(point)

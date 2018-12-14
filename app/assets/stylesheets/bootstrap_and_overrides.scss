@@ -17,7 +17,6 @@ body {
 .navbar-static-top {
    font-size: 20px;
     background-color: #563D7C;
-
 }
 
 ul.nav.navbar-nav li a{
@@ -62,11 +61,7 @@ li.search {
 .page_question_title, h2 {
     text-align: center;
 }
-.questions {
-    border: 2px solid black;
-    padding: 10px;
 
-}
 .answer, .form_gr {
     border-top: 1px solid black;
     border-left: 2px solid black;
@@ -86,10 +81,6 @@ li.search {
     margin: 30px 0;
 }
 /* forms */
-
-
-
-
 #error_explanation {
   ul {
     list-style: none;
