@@ -45,6 +45,7 @@ gem 'remotipart'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'dotenv-rails'
 gem 'unicorn'
+gem 'redis-rails'
 
 
 group :development, :test do

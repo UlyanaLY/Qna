@@ -8,16 +8,17 @@ table.table.table-hover
        th.col-md-1 scope="col"
        th.col-md-1 scope="col"
    tbody
-     - @questions.each do |question|
-       tr id="question-id-#{question.id}"
-        th scope="row"
-          = question.id
-          td = link_to question.title, question
-          td = question.user.email
-          td = question.created_at
-        .question
-          td = link_to 'Edit', edit_question_path(question) if can?(:destroy, question) if can?(:destroy, question)
-          td = link_to 'Delete', question, remote: true, method: :delete, data: {question_id: question.id} if can?(:destroy, question)
+     -cache collection_cache_key_for :question do
+       - @questions.each do |question|
+         tr id="question-id-#{question.id}"
+          th scope="row"
+            = question.id
+            td = link_to question.title, question
+            td = question.user.email
+            td = question.created_at
+          .question
+            td = link_to 'Edit', edit_question_path(question) if can?(:destroy, question) if can?(:destroy, question)
+            td = link_to 'Delete', question, remote: true, method: :delete, data: {question_id: question.id} if can?(:destroy, question)
 - if can?(:create, Question)
   .btn.btn-primary.btn-lg.btn-block
     = link_to 'Ask question', new_question_path
