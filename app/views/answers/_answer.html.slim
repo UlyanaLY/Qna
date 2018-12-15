@@ -1,20 +1,30 @@
 - if answer.persisted?
     div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}" class="answer"
-      div class = 'answer-container-#{answer.id}'
-        p = answer.body
-        ul
-          - answer.attachments.each do |a|
-            div id="answer_attachment-id-#{a.id}"
-              li= link_to a.file.identifier, a.file.url
-              p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
+      div class = 'answer-container-#{answer.id}' class="panel panel-default"
+        div.panel-heading
+          p = answer.user.email
+        div.panel-body
+          p = answer.body
+        - if answer.attachments.any?
+          div class="panel panel-default"
+            div.panel-heading  Attachments
+            ul
+              - answer.attachments.each do |a|
+                div id="answer_attachment-id-#{a.id}"
+                  p= link_to a.file.identifier, a.file.url
+                - if can?(:destroy, answer)
+                  p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
           - if can?(:voteup, answer)
-             div  class="rating"
-
-                span = link_to voteup_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
-                  i.fa.fa-angle-up.fa-2x
-                p id="answer_rate-id-#{answer.id}" = answer.rate
-                span = link_to votedown_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true
-                  i.fa.fa-angle-down.fa-2x
+             div class="rating"
+               div class="panel panel-default"
+                 div.panel-heading
+                   p Votes:
+                 div.panel-body
+                    span = link_to voteup_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true, class: 'btn btn-primary'
+                      i.fa.fa-angle-up.fa-2x
+                    span id="answer_rate-id-#{answer.id}" = answer.rate
+                    span = link_to votedown_answer_path(answer), method: :post, data: {type: :json, answer_id: answer.id}, remote: true, class: 'btn btn-primary'
+                      i.fa.fa-angle-down.fa-2x
         - if can?(:destroy, answer)
           p
             = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }

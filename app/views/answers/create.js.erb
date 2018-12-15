@@ -1,12 +1,12 @@
 <% if @answer.errors.present? %>
 <% @answer.errors.full_messages.each do |message| %>
-$('.answer-errors').html('<%= j message %>');
+  $('.answer-errors').html('<%= j message %>');
 <% end %>
 <% else %>
 <% if remotipart_submitted? %>
-$('.answers').html('<%= j "#{render (@question.answers.sort_by_best)}" %>');
+  $('.answers').html('<%= j "#{render (@question.answers.sort_by_best)}" %>');
 <% else %>
-$('.answers').html('<%=  j render (@question.answers.sort_by_best) %>');
+  $('.answers').html('<%=  j render (@question.answers.sort_by_best) %>');
 <% end %>
 $('.edit-answer-link').click(function(e) {
     e.preventDefault();
@@ -14,7 +14,7 @@ $('.edit-answer-link').click(function(e) {
     answer_id = $(this).data('answerId');
     $('form#edit-answer-' + answer_id).show();
 });
-$('.notice').html('<%= j flash.notice = 'Answer was successfully created.' %>');
-$('textarea').val('');
-$('.field input').val('');
+  $('.notice').html('<%= j flash.notice = 'Answer was successfully created.' %>');
+  $('textarea').val('');
+  $('.field input').val('');
 <% end %>

@@ -5,7 +5,6 @@
         h4 Comments
         .comments data-id="#{resource.id}"
             - if resource.comments.present?
-
             - resource.comments.each do |comment|
               -if comment.persisted?
                 div id="comment-id-#{resource.id}-#{comment.id}" class="panel panel-default"
