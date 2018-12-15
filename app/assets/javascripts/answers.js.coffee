@@ -10,6 +10,7 @@ $ ->
     $('.answers').append('<p>'+answer.answer.body+'</p>')
     $('.answer_error').remove()
 
+
   $(document).on 'ajax:error', 'form.new_answer', (e, xhr, status, error) ->
       errors = $.parseJSON(xhr.responseText);
       $.each errors, (index, value) ->

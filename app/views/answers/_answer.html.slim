@@ -1,5 +1,4 @@
-- cache answer do
-  - if answer.persisted?
+- if answer.persisted?
     div id="answer-id-#{answer.id}" class="#{'best_answer' if answer.best?}" class="answer"
       div class = 'answer-container-#{answer.id}'
         p = answer.body
@@ -21,10 +20,13 @@
             = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
           p
             = form_for answer, remote: true, html: { id: "edit-answer-#{answer.id}"}  do |f|
-              = f.label :body, "Answer"
-              = f.text_area :body
-              = render 'common/edit_attachment_form', f: f
-              = f.submit 'Save'
+              p
+                = f.label :body, "Answer"
+              p
+                = f.text_area :body
+                = render 'common/edit_attachment_form', f: f
+              p
+                = f.submit 'Save'
           p
             = link_to 'Delete', answer, remote: true, method: :delete, data: { confirm: "You sure?" }
 
