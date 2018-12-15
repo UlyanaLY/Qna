@@ -1,6 +1,6 @@
 .subscription
   - if can?(:create, Subscription) && !current_user.subscribed?(@question) && !current_user.author_of?(@question)
     p= button_to 'Subscribe', subscriptions_path(question_id: @question), remote: true
-- @question.subscriptions.each do |subscription|
-  - if can?(:destroy, subscription)
-    p= button_to 'Unsubscribe', subscription_path(subscription), method: :delete, remote: true
+  - @question.subscriptions.each do |subscription|
+    - if can?(:destroy, subscription) && current_user.subscribed?(@question)
+      p= button_to 'Unsubscribe', subscription_path(subscription), method: :delete, remote: true
