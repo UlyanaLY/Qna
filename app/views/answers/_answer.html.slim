@@ -14,7 +14,7 @@
                   p= link_to a.file.identifier, a.file.url
                 - if can?(:destroy, answer)
                   p= link_to 'Удалить', a, remote: true, method: :delete, data: { attachmnet_id: a.id }
-          - if can?(:voteup, answer)
+        - if can?(:voteup, answer)
              div class="rating"
                div class="panel panel-default"
                  div.panel-heading

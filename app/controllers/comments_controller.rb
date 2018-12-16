@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
 
   def destroy_comment
     return if @comment.errors.any?
-    the_method =  "destroy"
+    the_method = "destroy" if @commentable
 
     data = {
         commentable_id: @commentable.id,
@@ -60,6 +60,7 @@ class CommentsController < ApplicationController
     ActionCable.server.broadcast( "comments_for#{@comment.commentable_type === 'Question' ? @commentable.id : @commentable.question_id}",
                                   data
     )
+
   end
 
   def set_commentable

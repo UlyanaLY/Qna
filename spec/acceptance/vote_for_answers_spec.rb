@@ -35,28 +35,28 @@ feature 'vote for answer', %q{
     end
 
     scenario 'Authenticated user sees button vote for the answer that is not his own', js: true do
-      within "#answer-id-#{answer.id} div.rating" do
-        expect(page).to have_css ("a i.fa.fa-angle-up")
+      within "#answer-id-#{answer.id}" do
+        expect(page).to have_css ("a i.fa.fa-angle-up.fa-2x")
       end
     end
 
     scenario 'Authenticated user try vote for the answer that is not his own', js: true do
-      within "#answer-id-#{answer.id} div.rating" do
-        find("a i.fa.fa-angle-up").click
+      within "#answer-id-#{answer.id}" do
+        find("a i.fa.fa-angle-up.fa-2x").click
         sleep 1
         expect(page).to have_content "1"
       end
     end
 
     scenario 'Authenticated user try to vote against the answer that is not his own', js: true do
-      within "#answer-id-#{answer.id} div.rating" do
+      within "#answer-id-#{answer.id}" do
         find("a i.fa.fa-angle-down").click
         expect(page).to have_content "-1"
       end
     end
 
     scenario 'Authenticated user cancel vote for not own answer ', js: true do
-      within "#answer-id-#{answer.id} div.rating" do
+      within "#answer-id-#{answer.id}" do
         find("a i.fa.fa-angle-up").click
         expect(page).to have_content "1"
 

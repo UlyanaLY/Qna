@@ -15,7 +15,7 @@ feature 'Subscriptions', %q{
     expect(page).to_not have_button 'Subscribe'
   end
 
-  describe 'Non-author of question user' do
+  describe 'Author of question user' do
     before do
       sign_in(author)
       visit question_path(question)
@@ -23,14 +23,6 @@ feature 'Subscriptions', %q{
 
     scenario 'Author dont see subscribe link in his question' do
       expect(page).to_not have_button 'Subscribe'
-      expect(page).to have_button "Unsubscribe"
-    end
-
-    scenario 'Author can unsubscribe from his question', js: true do
-      click_on 'Unsubscribe'
-
-      expect(page).to have_button 'Subscribe'
-      expect(page).to_not have_button "Unsubscribe"
     end
   end
 

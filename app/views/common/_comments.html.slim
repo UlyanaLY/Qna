@@ -14,7 +14,7 @@
                   div.panel-body
                     p.comment-body
                       = comment.body
-                    - if user_signed_in?&& can?(:destroy, comment)
+                    - if user_signed_in? && can?(:destroy, comment)
                         - if comment.commentable_type == 'Answer'
                             = link_to 'Delete', comment, remote: true, method: :delete, data: { comment_id: comment.id }
                         - else

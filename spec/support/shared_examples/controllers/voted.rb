@@ -19,23 +19,23 @@ shared_examples 'voted' do
         send_request(:voteup, resource)
         expect(resource.rate).to eq(1)
       end
-    end
 
-    it 'saves the new vote in the database' do
-      expect { send_request(:voteup, resource) }
-          .to change(resource.votes, :count).by(1)
-    end
-
-    context 'resource owner' do
-      it 'increase score by 1' do
-        send_request(:voteup, user_resource)
-        expect(user_resource.rate).to eq(0)
+      it 'saves the new vote in the database' do
+        expect { send_request(:voteup, resource) }
+            .to change(resource.votes, :count).by(1)
       end
     end
 
-    it 'saves the new vote in the database' do
-      expect { send_request(:voteup, user_resource) }
-          .to change(user_resource.votes, :count).by(0)
+    context 'resource owner' do
+      it "doesn't increase score by 1" do
+        send_request(:voteup, user_resource)
+        expect(user_resource.rate).to eq(0)
+      end
+
+      it "doesn't save the new vote in the database" do
+        expect { send_request(:voteup, user_resource) }
+            .to change(user_resource.votes, :count).by(0)
+      end
     end
   end
 end

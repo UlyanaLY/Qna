@@ -6,12 +6,12 @@ module Voted
   end
 
   def voteup
-    @votable.voteup(current_user)
+    @votable.voteup(current_user) if !current_user.author_of?(@votable)
     render_rate
   end
 
   def votedown
-    @votable.votedown(current_user)
+    @votable.votedown(current_user) if !current_user.author_of?(@votable)
     render_rate
   end
 

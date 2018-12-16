@@ -6,6 +6,7 @@ feature 'Create comment',  %q{
     I want to be able to create comments for answer and/or question'
  } do
   given(:user) { create(:user) }
+  given!(:other_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
 
@@ -39,7 +40,8 @@ feature 'Create comment',  %q{
         visit question_path(question)
       end
 
-      Capybara.using_session('guest') do
+      Capybara.using_session('other_user') do
+        sign_in(other_user)
         visit question_path(question)
       end
 
@@ -47,11 +49,11 @@ feature 'Create comment',  %q{
         within '.question-container' do
           fill_in 'comment_body', with: 'Text from comment(question)'
           click_on 'Place a comment'
-          expect(page).to have_content 'Text from comment'
+          expect(page).to have_content 'Text from comment(question)'
         end
       end
 
-      Capybara.using_session('guest') do
+      Capybara.using_session('other_user') do
         within '.question-container' do
           expect(page).to have_content 'Text from comment'
         end
@@ -64,7 +66,8 @@ feature 'Create comment',  %q{
         visit question_path(question)
       end
 
-      Capybara.using_session('guest') do
+      Capybara.using_session('other_user') do
+        sign_in(other_user)
         visit question_path(question)
       end
 
@@ -76,7 +79,7 @@ feature 'Create comment',  %q{
         end
       end
 
-      Capybara.using_session('guest') do
+      Capybara.using_session('other_user') do
         within '.answers' do
           expect(page).to have_content 'Text from comment(answer)'
         end

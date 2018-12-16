@@ -23,8 +23,8 @@ feature 'Delete files from question', %q{
         click_on question.title
       end
 
-      expect(page).to have_link 'Удалить'
-      click_on 'Удалить'
+      expect(page).to have_link 'Delete'
+      click_on 'Delete'
       expect(page).not_to have_selector "#question_attachment-id-#{question.id}"
     end
 
@@ -33,8 +33,8 @@ feature 'Delete files from question', %q{
         click_on 'Edit'
       end
 
-      expect(page).to have_link 'Удалить'
-      click_on 'Удалить'
+      expect(page).to have_link 'Delete'
+      click_on 'Delete'
       expect(page).not_to have_selector "#question_attachment-id-#{question.id}"
     end
   end
